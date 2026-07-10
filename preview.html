@@ -1105,7 +1105,7 @@
       border-color: rgba(124,231,178,.20);
       background: rgba(124,231,178,.08);
     }
-    .pill.shell{
+    .pill.slate{
       color: #dcecf0;
       border-color: rgba(255,255,255,.08);
       background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
@@ -5846,8 +5846,9 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.10) 40%, rgba(0,0,0,.38)),
+        linear-gradient(180deg, rgba(6,10,18,.86), rgba(4,7,13,.82) 40%, rgba(2,4,9,.94)),
         radial-gradient(circle at 50% 76%, var(--bridge-floor-glow), transparent 22%);
+      backdrop-filter: saturate(.35) brightness(.42);
       z-index: 0;
       pointer-events: none;
     }
@@ -6533,10 +6534,8 @@
       border-color: color-mix(in srgb, var(--bridge-warm) 36%, transparent);
     }
     .bridge-core-dock{
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
+      position: relative;
+      margin: 16px auto 0;
       width: min(260px, 82%);
       padding: 12px 14px;
       border-radius: 20px;
@@ -6566,10 +6565,9 @@
       line-height: 1.42;
     }
     .bridge-reactor-meaning{
-      position: absolute;
-      bottom: -6px;
-      right: 8%;
-      width: min(220px, 44%);
+      position: relative;
+      margin: 10px auto 0;
+      width: min(300px, 92%);
       padding: 12px 14px;
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.06);
@@ -6578,6 +6576,7 @@
       display: grid;
       gap: 4px;
       z-index: 1;
+      text-align: center;
     }
     .bridge-reactor-meaning-title{
       color: rgba(255,214,156,.86);
@@ -8393,7 +8392,7 @@
       background:
         radial-gradient(circle at 50% 74%, rgba(255,214,156,.06), transparent 18%),
         radial-gradient(circle at 52% 54%, rgba(108,227,246,.06), transparent 24%),
-        linear-gradient(180deg, rgba(7,11,18,.24), rgba(5,8,15,.44));
+        linear-gradient(180deg, rgba(7,11,18,.82), rgba(5,8,15,.92));
       box-shadow: inset 0 1px 0 rgba(255,255,255,.04), 0 24px 72px rgba(0,0,0,.18), 0 0 0 1px rgba(255,255,255,.02);
     }
     .command-bridge-window::before{
@@ -9598,7 +9597,7 @@
       background:
         radial-gradient(circle at 50% 76%, rgba(255,214,156,.06), transparent 18%),
         radial-gradient(circle at 52% 54%, rgba(108,227,246,.08), transparent 24%),
-        linear-gradient(180deg, rgba(7,11,18,.46), rgba(5,8,15,.72));
+        linear-gradient(180deg, rgba(7,11,18,.88), rgba(5,8,15,.95));
     }
     body.mobile-preview-mode .command-bridge-window::before{
       inset: 14px 14px auto;
@@ -9642,10 +9641,13 @@
       left: -80px;
       bottom: -100px;
     }
+    body.mobile-preview-mode .command-workbench{
+      inset: 340px 20px 24px;
+    }
     body.mobile-preview-mode .command-bridge-grid{
       grid-template-columns: 1fr;
       gap: 12px;
-      padding-top: 96px;
+      padding-top: 16px;
     }
     body.mobile-preview-mode .bridge-command-strip{
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -10019,7 +10021,7 @@
       }
       .base-left .scene-status-row .pill,
       .base-left .scene-status-row .pill.accent,
-      .base-left .scene-status-row .pill.shell{
+      .base-left .scene-status-row .pill.slate{
         height: 34px !important;
         min-height: 34px !important;
       }
@@ -10647,7 +10649,7 @@
                 <div class="base-shell-hud-metrics">
                   <div class="scene-meta-chip" id="baseHeaderMetaTarget">Target · Alex</div>
                   <div class="scene-meta-chip" id="baseHeaderMetaRoute">Mode · Soft Dock</div>
-                  <div class="pill shell" id="baseHeaderPill">4 live routes</div>
+                  <div class="pill slate" id="baseHeaderPill">4 live routes</div>
                 </div>
               </div>
               <div class="base-frame"></div>
