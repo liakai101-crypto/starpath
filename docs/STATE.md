@@ -8,34 +8,42 @@ The Flutter app in `lib/` remains important, but it is not the current UI mainli
 
 ## What Was Most Recently Changed
 
-- Distant friend selection no longer forces a switch into Wide Space
-- Product wording changed from archive to invisibility
-- Wide Space now reuses the same main ship language as Local Orbit instead of reading like a totally different vessel
-- A handoff blueprint was prepared for external continuation
+- Fixed real layout collisions in all three primary pages (July 2026 sprint):
+  - Command Core: bridge-core-dock / reactor-meaning overlap, plus a `.pill.shell`
+    class-name collision with the root `.shell` container that blew up the
+    mobile layout
+  - Profile Archive: identity panel / hero note-card overlap; identity score is
+    now a conic-gradient gauge; leaked internal design-note copy replaced with
+    product copy
+  - Orbit: at narrow widths the floating cards (caption, quick actions, route
+    ledger) no longer collide with the target HUD, stage art, or each other
+- Traditional Chinese: `overflow-wrap: break-word` fallback added so
+  `word-break: keep-all` can no longer push CJK text out of narrow containers;
+  verified zero text overflow across all four scenes in both viewport modes
+- The hangar background art (a repair-bay illustration, not a bridge) is now
+  dimmed to ambient texture in Command Core so the CSS-built bridge chrome
+  reads as the scene
 
 ## Current Blockers
 
-### Command Core
+### Command Core and Profile Archive final quality
 
-- Still reads too much like layered panels over a background
-- The center object does not yet communicate a strong, obvious bridge-core meaning
-- Needs real spatial hierarchy, not just cleaned-up widgets
-
-### Profile Archive
-
-- Still not premium enough in hierarchy
-- Identity, curated memory, and outward artifact need stronger emphasis
-- Still carries some dashboard DNA
+- Both pages are now structurally clean, but reaching the reference-image
+  quality bar requires real art assets (bridge interior, reactor, portraits);
+  CSS/SVG alone has hit its ceiling
+- The only bridge background asset (`assets/base/hangar_background.png`) is
+  thematically a repair bay with a corgi mascot, not a command bridge
 
 ### Traditional Chinese layout
 
-- Chinese interface still needs explicit layout tuning
-- It is not enough that text appears; it must keep the same product quality as English
+- Overflow is fixed; remaining work is proportion/spacing taste-tuning, not bugs
 
 ## Known Bugs
 
-- Some page states still feel visually crowded even when the logic works
-- Mobile preview exists, but not every scene and state has been fully validated
+- Wide Space's hint footnote can be partially overlapped by the view
+  explanation card at narrow widths (minor, text remains readable)
+- Distant-target markers (Morgan/Ethan) sit fully behind the flow cards at
+  narrow widths; invisible rather than broken, but they are not reachable there
 - `preview_scene_structure.test.cjs` is shallow and can pass while the UI still feels wrong
 
 ## Known TODO
