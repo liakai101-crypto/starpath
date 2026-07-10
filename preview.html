@@ -7785,6 +7785,8 @@
       background:
         radial-gradient(circle at 45% 35%, rgba(155,167,255,.20), transparent 30%),
         linear-gradient(180deg, rgba(44,25,61,.98), rgba(19,12,27,.98));
+      font-size: 18px;
+      opacity: .58;
     }
     .memory-card .name{
       margin: 0;
@@ -8027,9 +8029,9 @@
       border: 1px solid rgba(255,255,255,.06);
       background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
       display: grid;
-      justify-items: end;
-      gap: 4px;
-      text-align: right;
+      justify-items: center;
+      gap: 6px;
+      text-align: center;
       box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
     }
     .identity-score-label{
@@ -8039,10 +8041,30 @@
       letter-spacing: .18em;
       text-transform: uppercase;
     }
+    .identity-score-ring{
+      --score: 0;
+      position: relative;
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: conic-gradient(#8ceeff calc(var(--score) * 1%), rgba(255,255,255,.08) 0);
+      box-shadow: 0 0 18px rgba(108,227,246,.20);
+    }
+    .identity-score-ring::before{
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(16,22,34,.96), rgba(10,15,24,.98));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+    }
     .identity-score-value{
-      font-size: 30px;
+      position: relative;
+      font-size: 17px;
       font-weight: 900;
-      letter-spacing: -.04em;
+      letter-spacing: -.03em;
       line-height: 1;
       color: #8ceeff;
       text-shadow: 0 0 18px rgba(108,227,246,.24);
@@ -9220,6 +9242,14 @@
         right: auto;
         width: 100%;
         margin-top: 110px;
+      }
+      .profile-dossier-hero-copy{
+        position: relative;
+        left: auto;
+        bottom: auto;
+        width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 16px;
       }
       .profile-signature-grid{
         grid-template-columns: 1fr;
@@ -10919,7 +10949,9 @@
                     </div>
                     <div class="identity-score">
                       <div class="identity-score-label" id="capsuleIdentityScoreLabel">Identity score</div>
-                      <div class="identity-score-value" id="capsuleIdentityScore">72%</div>
+                      <div class="identity-score-ring" id="capsuleIdentityScoreRing" style="--score:72">
+                        <div class="identity-score-value" id="capsuleIdentityScore">72%</div>
+                      </div>
                     </div>
                   </div>
                   <div class="identity-route-chip" id="capsuleIdentityRoute">Warm channel, stable late-night replies.</div>
@@ -10972,7 +11004,7 @@
                   </div>
                   <div class="memory-grid profile-memory-grid">
                     <button class="memory-card active" data-memory="0" type="button">
-                      <div class="image">☻</div>
+                      <div class="image" aria-hidden="true"></div>
                       <div>
                         <p class="name" id="capsuleMemoryName0">Meteor Cafe</p>
                         <p class="desc" id="capsuleMemoryDesc0">The afternoon you both felt lighter.</p>
@@ -11348,6 +11380,7 @@
     const capsuleIdentityName = document.getElementById('capsuleIdentityName');
     const capsuleIdentityRole = document.getElementById('capsuleIdentityRole');
     const capsuleIdentityScore = document.getElementById('capsuleIdentityScore');
+    const capsuleIdentityScoreRing = document.getElementById('capsuleIdentityScoreRing');
     const capsuleIdentityRoute = document.getElementById('capsuleIdentityRoute');
     const capsuleOutputValue0 = document.getElementById('capsuleOutputValue0');
     const capsuleOutputMeta0 = document.getElementById('capsuleOutputMeta0');
@@ -14246,6 +14279,10 @@
       if (capsuleIdentityName) capsuleIdentityName.textContent = localize(item.focus);
       if (capsuleIdentityRole) capsuleIdentityRole.textContent = localize(item.summary);
       if (capsuleIdentityScore) capsuleIdentityScore.textContent = item.telemetry.warmth;
+      if (capsuleIdentityScoreRing) {
+        const scoreNum = parseInt(item.telemetry.warmth, 10);
+        if (!Number.isNaN(scoreNum)) capsuleIdentityScoreRing.style.setProperty('--score', scoreNum);
+      }
       if (capsuleIdentityRoute) capsuleIdentityRoute.textContent = localize(item.ledgerMeta);
       const note0Label = document.getElementById('capsuleAtlasNoteLabel0');
       const note1Label = document.getElementById('capsuleAtlasNoteLabel1');
