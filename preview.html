@@ -7933,10 +7933,9 @@
       border-radius: 24px;
       display: grid;
       place-items: center;
-      background: radial-gradient(circle, rgba(255,255,255,.95), rgba(155,167,255,.65) 34%, rgba(108,227,246,.18) 66%, transparent 78%);
-      color: var(--text);
-      font-weight: 900;
+      background: radial-gradient(circle at 38% 32%, rgba(155,167,255,.16), transparent 70%);
       box-shadow: 0 0 40px rgba(155,167,255,.18);
+      flex-shrink: 0;
     }
 
     .right-rail{
@@ -11043,7 +11042,19 @@
                           <div class="artifact-card-kicker" id="capsuleArtifactKicker">Outward artifact</div>
                           <div class="artifact-card-title">StarPath Profile Archive</div>
                         </div>
-                        <div class="share-orb">◉</div>
+                        <div class="share-orb">
+                          <svg viewBox="0 0 72 72" width="72" height="72" aria-hidden="true">
+                            <defs>
+                              <radialGradient id="shareOrbPlanet" cx="38%" cy="32%" r="75%">
+                                <stop offset="0%" stop-color="#f4f9ff"/>
+                                <stop offset="42%" stop-color="#9bb0ff"/>
+                                <stop offset="100%" stop-color="#2c2f6e"/>
+                              </radialGradient>
+                            </defs>
+                            <ellipse cx="36" cy="41" rx="29" ry="8.5" fill="none" stroke="rgba(108,227,246,.55)" stroke-width="2.2" transform="rotate(-15 36 41)"/>
+                            <circle cx="35" cy="33" r="17" fill="url(#shareOrbPlanet)"/>
+                          </svg>
+                        </div>
                       </div>
                       <div class="artifact-card-body">
                         <div class="artifact-card-line">
