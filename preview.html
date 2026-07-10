@@ -9146,13 +9146,30 @@
       .contact-card,
       .orbital-sidebar,
       .route-ledger{
-        position: static;
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
         width: auto;
         margin-top: 12px;
         transform: none;
+        z-index: 3;
+      }
+      .orbit-grid-main.left-collapsed .contact-card,
+      .orbit-grid-main.right-collapsed .contact-card,
+      .orbit-grid-main.left-collapsed.right-collapsed .contact-card,
+      .orbit-grid-main.right-collapsed .caption-card,
+      .orbit-grid-main.left-collapsed.right-collapsed .caption-card{
+        left: auto;
+        right: auto;
+        bottom: auto;
+      }
+      .center-stage .stage-badges{
+        display: none;
       }
       .center-stage{
         min-height: 620px;
+        padding-top: 172px;
       }
       .base-stage{
         min-height: 900px;
@@ -9192,8 +9209,10 @@
       .route-ledger.collapsed,
       .contact-card.collapsed{
         width: auto;
+        left: auto;
         right: auto;
         bottom: auto;
+        transform: none;
       }
       .target-hud.collapsed{
         width: auto;
@@ -9352,10 +9371,23 @@
     body.mobile-preview-mode .contact-card,
     body.mobile-preview-mode .orbital-sidebar,
     body.mobile-preview-mode .route-ledger{
-      position: static;
+      position: relative;
+      left: auto;
+      right: auto;
+      bottom: auto;
       width: auto;
       margin-top: 12px;
       transform: none;
+      z-index: 3;
+    }
+    body.mobile-preview-mode .orbit-grid-main.left-collapsed .contact-card,
+    body.mobile-preview-mode .orbit-grid-main.right-collapsed .contact-card,
+    body.mobile-preview-mode .orbit-grid-main.left-collapsed.right-collapsed .contact-card{
+      right: auto;
+      bottom: auto;
+    }
+    body.mobile-preview-mode .center-stage{
+      padding-bottom: 168px;
     }
     body.mobile-preview-mode .target-hud{
       left: 16px;
