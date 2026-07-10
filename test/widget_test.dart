@@ -50,6 +50,20 @@ void main() {
     expect(find.text('Late-night orbit ping'), findsOneWidget);
   });
 
+  testWidgets('Base shows active relationship quest', (
+    WidgetTester tester,
+  ) async {
+    await _setViewport(tester);
+    await tester.pumpWidget(const StarPathApp());
+    await tester.pump();
+
+    await tester.tap(find.text('Base'));
+    await tester.pump(const Duration(milliseconds: 350));
+
+    expect(find.text('Active quest'), findsOneWidget);
+    expect(find.text('Warm EX-002 to 70%'), findsOneWidget);
+  });
+
   testWidgets('Capsule unlocks Emma memory after orbit pulse', (
     WidgetTester tester,
   ) async {

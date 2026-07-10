@@ -309,6 +309,8 @@ class _StarPathShellState extends State<StarPathShell>
                       selectedFormation: _starPathController.selectedFormation,
                       onFormationChanged: _starPathController.selectFormation,
                       onAddFormation: _showFormationDialog,
+                      primaryQuestBuilder:
+                          _starPathController.primaryQuestForPlanet,
                     ),
                     CapsulePage(
                       memories: _starPathController.memories,

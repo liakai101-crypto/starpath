@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../core/starpath_copy.dart';
 import '../../core/starpath_style.dart';
 import '../orbit/models/friend_planet.dart';
+import 'models/relationship_quest.dart';
 import 'models/signal_record.dart';
 
 class BasePage extends StatefulWidget {
@@ -19,6 +20,7 @@ class BasePage extends StatefulWidget {
     required this.selectedFormation,
     required this.onFormationChanged,
     required this.onAddFormation,
+    this.primaryQuestBuilder,
     super.key,
   });
 
@@ -30,6 +32,7 @@ class BasePage extends StatefulWidget {
   final String selectedFormation;
   final ValueChanged<String> onFormationChanged;
   final VoidCallback onAddFormation;
+  final RelationshipQuest? Function(FriendPlanet planet)? primaryQuestBuilder;
 
   @override
   State<BasePage> createState() => _BasePageState();
@@ -186,6 +189,9 @@ class _BasePageState extends State<BasePage>
     final FriendPlanet? selectedPlanet = selectedSignal == null
         ? (planets.isEmpty ? null : planets.first)
         : _planetFor(selectedSignal.friendName);
+    final RelationshipQuest? activeQuest = selectedPlanet == null
+        ? null
+        : widget.primaryQuestBuilder?.call(selectedPlanet);
 
     return Scaffold(
       backgroundColor: StarPathStyle.backgroundDeep,
@@ -274,6 +280,7 @@ class _BasePageState extends State<BasePage>
                               },
                               signal: selectedSignal,
                               planet: selectedPlanet,
+                              activeQuest: activeQuest,
                             ),
                           ),
                         ],
@@ -620,6 +627,7 @@ class _RightDetailsWall extends StatelessWidget {
     required this.onToggle,
     required this.signal,
     required this.planet,
+    required this.activeQuest,
   });
 
   final StarPathCopy copy;
@@ -627,6 +635,7 @@ class _RightDetailsWall extends StatelessWidget {
   final VoidCallback onToggle;
   final SignalRecord? signal;
   final FriendPlanet? planet;
+  final RelationshipQuest? activeQuest;
 
   @override
   Widget build(BuildContext context) {
@@ -676,6 +685,10 @@ class _RightDetailsWall extends StatelessWidget {
                   title: copy.recentUpdate,
                   body: signal?.summary ?? copy.waitingForGravity,
                 ),
+                if (activeQuest != null) ...[
+                  const SizedBox(height: 10),
+                  _QuestDetailBlock(quest: activeQuest!),
+                ],
                 const SizedBox(height: 14),
                 Text(
                   copy.icebreakerSignal,
@@ -738,6 +751,87 @@ class _RightDetailsWall extends StatelessWidget {
                 ],
               ),
             ),
+    );
+  }
+}
+
+class _QuestDetailBlock extends StatelessWidget {
+  const _QuestDetailBlock({required this.quest});
+
+  final RelationshipQuest quest;
+
+  @override
+  Widget build(BuildContext context) {
+    final String progressLabel =
+        '${quest.currentValue.toStringAsFixed(2)} / ${quest.targetValue.toStringAsFixed(2)}';
+    return Container(
+      key: const ValueKey('active-quest-card'),
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: StarPathStyle.accent.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: StarPathStyle.accent.withValues(alpha: 0.20),
+        ),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            StarPathStyle.surfaceRaised.withValues(alpha: 0.92),
+            StarPathStyle.surfaceMuted.withValues(alpha: 0.72),
+          ],
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Active quest',
+            style: TextStyle(
+              color: StarPathStyle.textSecondary.withValues(alpha: 0.82),
+              fontSize: 11.5,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            quest.title,
+            style: const TextStyle(
+              color: StarPathStyle.textPrimary,
+              fontSize: 13.5,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            quest.description,
+            style: const TextStyle(
+              color: StarPathStyle.textSecondary,
+              fontSize: 11.8,
+              height: 1.3,
+            ),
+          ),
+          const SizedBox(height: 10),
+          LinearProgressIndicator(
+            value: quest.progress,
+            minHeight: 6,
+            backgroundColor: Colors.white.withValues(alpha: 0.08),
+            valueColor: const AlwaysStoppedAnimation<Color>(
+              StarPathStyle.accent,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            progressLabel,
+            style: const TextStyle(
+              color: StarPathStyle.textPrimary,
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

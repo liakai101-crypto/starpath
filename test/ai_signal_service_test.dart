@@ -8,6 +8,7 @@ import 'package:starpath/shared/ai/models/ai_signal_request.dart';
 
 void main() {
   final focusPlanet = FriendPlanet(
+    id: 'emma',
     name: 'EX-002',
     energy: 0.68,
     unlocked: false,

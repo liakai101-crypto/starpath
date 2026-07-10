@@ -1,0 +1,128 @@
+{
+  "orbit_desktop": {
+    "title": "StarPath Preview",
+    "url": "http://127.0.0.1:8092/preview.html?scene=orbit",
+    "scene": "orbit",
+    "bodyClass": "",
+    "selectors": {
+      "stage": {
+        "exists": true,
+        "x": 234,
+        "y": 277,
+        "width": 1099,
+        "height": 1537,
+        "text": "接近航向：Alex\n階段 · 接近\nAlex\n距離 4.2 AU\nIris\n距離 12.6 AU\nMorgan\n距離 8.3 AU\nEthan\n距離 15.1 AU\nHubble\nAlex 是目前最溫暖的航道。保持輕盈、直接，然後留空間讓對"
+      },
+      "ship": {
+        "exists": true,
+        "x": 464,
+        "y": 911,
+        "width": 502,
+        "height": 248,
+        "text": ""
+      },
+      "leftRail": {
+        "exists": true,
+        "x": 33,
+        "y": 277,
+        "width": 191,
+        "height": 1537,
+        "text": "✦\nORBIT\n指令台\nStarPath\n關係導航艦橋\n‹\n航道路徑篩選\n先縮小觀察範圍，再進入中央舞台。\n+\n目前篩選為 全部航道，展開後可再搜尋與切換觀察角度。\n最近對象\n可以在這裡點選，也可以直接在舞台上點飛船。\n−\nAlex\n溫暖通"
+      },
+      "rightRail": {
+        "exists": true,
+        "x": 1343,
+        "y": 277,
+        "width": 46,
+        "height": 1537,
+        "text": "‹\nSYSTEM"
+      }
+    },
+    "consoleErrors": [],
+    "screenshot": "C:\\starpath\\qa_shots\\orbit_desktop.png"
+  },
+  "base_desktop": {
+    "title": "StarPath Preview",
+    "url": "http://127.0.0.1:8092/preview.html?scene=base",
+    "scene": "base",
+    "bodyClass": "",
+    "selectors": {
+      "bridge": {
+        "exists": true,
+        "x": 222,
+        "y": 274,
+        "width": 981,
+        "height": 857,
+        "text": "COMMAND CORE\n進入艦體內部，組裝一次乾淨傳輸\n這一頁不是另一面儀表板，而是飛船艦橋。路徑、記憶與時機會在這裡被收束，最後只放出一則明確訊號。\n通道狀態\n接近線\n即時訊號通道\n可回覆窗口已開啟\n訊號通道正在等待更乾淨的下一步。\nB"
+      },
+      "dossier": {
+        "exists": true,
+        "x": 44,
+        "y": 634,
+        "width": 295,
+        "height": 346,
+        "text": "橋艙對象\nAlex\nOnly keep the route data that materially shapes the next message.\n連結狀態\n已解鎖\nMode · Soft Dock\n破冰訊號\nAlex\n溫暖通道已啟動，"
+      },
+      "arch": {
+        "exists": true,
+        "x": 331,
+        "y": 315,
+        "width": 764,
+        "height": 310,
+        "text": ""
+      },
+      "signalButton": {
+        "exists": true,
+        "x": 963,
+        "y": 1045,
+        "width": 202,
+        "height": 54,
+        "text": ""
+      }
+    },
+    "consoleErrors": [],
+    "screenshot": "C:\\starpath\\qa_shots\\base_desktop.png"
+  },
+  "capsule_mobile": {
+    "title": "StarPath Preview",
+    "url": "http://127.0.0.1:8092/preview.html?scene=capsule",
+    "scene": "capsule",
+    "bodyClass": "",
+    "selectors": {
+      "hero": {
+        "exists": true,
+        "x": 42,
+        "y": 521,
+        "width": 398,
+        "height": 280,
+        "text": "檔案場域\n穩定回聲\n個人檔案場域啟動中\n被釘選的記憶與身份標記，會決定這條路徑如何被記住、攜帶與對外顯示。"
+      },
+      "identity": {
+        "exists": true,
+        "x": 44,
+        "y": 2735,
+        "width": 394,
+        "height": 285,
+        "text": "A\n檔案對象\nAlex\nAlex · 穩定連結 · 4.2 AU\n身份分數\n72%"
+      },
+      "timeline": {
+        "exists": true,
+        "x": 23,
+        "y": 3503,
+        "width": 436,
+        "height": 314,
+        "text": "檔案時間軸\n把檔案讀成一個順序：先挑片段、再減重，最後把結果送回 Command Core。\n挑出情緒入口最乾淨的那段記憶。\n已解鎖記憶\n先複製可對外展示的輕量版本，而不是整包檔案。\n溫暖檔案剪裁\n在真正行動前，先把輸出送進 Command"
+      },
+      "copyButton": {
+        "exists": true,
+        "x": 77,
+        "y": 1349,
+        "width": 328,
+        "height": 126,
+        "text": "複製卡片"
+      }
+    },
+    "consoleErrors": [],
+    "screenshot": "C:\\starpath\\qa_shots\\capsule_mobile.png"
+  }
+}

@@ -24,6 +24,7 @@ class StarPathSerializers {
 
   static FriendPlanet friendPlanetFromMap(Map<String, Object?> map) {
     return FriendPlanet(
+      id: _string(map, BackendField.name),
       name: _string(map, BackendField.name),
       energy: _double(map, BackendField.energy),
       unlocked: _bool(map, BackendField.unlocked),

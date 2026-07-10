@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FriendPlanet {
+  final String id;
   String name;
   double energy;
   bool unlocked;
@@ -19,6 +20,7 @@ class FriendPlanet {
   bool movingAway;
 
   FriendPlanet({
+    required this.id,
     required this.name,
     required this.energy,
     required this.unlocked,

@@ -4,6 +4,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../features/base/models/signal_record.dart';
+import '../features/base/models/relationship_quest.dart';
+import '../features/base/relationship_quest_generator.dart';
 import '../features/capsule/models/capsule_memory.dart';
 import '../features/orbit/models/friend_planet.dart';
 import '../services/repositories.dart';
@@ -18,6 +20,7 @@ class StarPathController extends ChangeNotifier {
     required CapsuleRepository capsuleRepository,
     required this.aiSignalService,
     this.timePhysicsStorage = const TimePhysicsStorage(),
+    this.questGenerator = const RelationshipQuestGenerator(),
   }) : planets = List<FriendPlanet>.from(friendRepository.loadPlanets()),
        signals = List<SignalRecord>.from(signalRepository.loadSignals()),
        _baseMemories =
@@ -25,6 +28,7 @@ class StarPathController extends ChangeNotifier {
 
   final AiSignalService aiSignalService;
   final TimePhysicsStorage timePhysicsStorage;
+  final RelationshipQuestGenerator questGenerator;
   final List<CapsuleMemory> _baseMemories;
 
   final List<FriendPlanet> planets;
@@ -168,6 +172,14 @@ class StarPathController extends ChangeNotifier {
 
   String get aiSuggestion {
     return aiSignalService.suggestionFor(planets, signals);
+  }
+
+  List<RelationshipQuest> questsForPlanet(FriendPlanet planet) {
+    return questGenerator.questsForPlanet(planet);
+  }
+
+  RelationshipQuest? primaryQuestForPlanet(FriendPlanet planet) {
+    return questGenerator.primaryQuestForPlanet(planet);
   }
 
   List<CapsuleMemory> get memories {
@@ -399,6 +411,7 @@ class StarPathController extends ChangeNotifier {
     if (!exists) {
       planets.add(
         FriendPlanet(
+          id: 'qt009',
           name: 'Unknown QT-009',
           energy: 0.60,
           unlocked: false,

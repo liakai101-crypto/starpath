@@ -10,6 +10,7 @@ class StarPathMockData {
   static List<FriendPlanet> planets() {
     return [
       FriendPlanet(
+        id: 'ex001',
         name: 'Unknown EX-001',
         energy: 0.30,
         unlocked: false,
@@ -26,6 +27,7 @@ class StarPathMockData {
         velocity: const Offset(0.45, 0.32),
       ),
       FriendPlanet(
+        id: 'emma',
         name: 'EX-002',
         energy: 0.68,
         unlocked: false,
@@ -41,6 +43,7 @@ class StarPathMockData {
         velocity: const Offset(-0.62, 0.38),
       ),
       FriendPlanet(
+        id: 'alex',
         name: 'Cpt. Alex',
         energy: 0.85,
         unlocked: true,

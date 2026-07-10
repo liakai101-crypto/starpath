@@ -16,6 +16,7 @@ void main() {
 
   test('friend planet serializes round-trip', () {
     final planet = FriendPlanet(
+      id: 'emma',
       name: 'Navigator Emma',
       energy: 0.83,
       unlocked: true,
@@ -29,6 +30,7 @@ void main() {
     final restored = StarPathSerializers.friendPlanetFromMap(map);
 
     expect(map[BackendField.name], 'Navigator Emma');
+    expect(restored.id, 'Navigator Emma');
     expect(restored.name, planet.name);
     expect(restored.energy, planet.energy);
     expect(restored.unlocked, planet.unlocked);
