@@ -8716,10 +8716,13 @@
       50%{ opacity: .58; }
     }
     @media (prefers-reduced-motion: reduce){
-      .bridge-reactor::after,
-      .bridge-reactor-core,
-      .bridge-reactor-core::before{
-        animation: none;
+      *,
+      *::before,
+      *::after{
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
       }
     }
     .bridge-note-strip .value{
