@@ -4520,11 +4520,11 @@
       box-shadow: 0 0 24px rgba(255,224,176,.12);
     }
     .wide-space-copy{
-      left: 50%;
-      bottom: 30px;
-      transform: translateX(-50%);
-      width: min(560px, calc(100% - 60px));
-      text-align: center;
+      left: auto;
+      right: 28px;
+      bottom: 34px;
+      width: min(560px, calc(100% - 448px));
+      text-align: right;
       font-size: 12px;
       line-height: 1.5;
       letter-spacing: .04em;
@@ -8610,10 +8610,11 @@
     .bridge-reactor::after{
       width: 124px;
       height: 124px;
-      border: 1px solid color-mix(in srgb, var(--bridge-accent) 42%, transparent);
+      border: 1px dashed color-mix(in srgb, var(--bridge-accent) 52%, transparent);
       box-shadow:
         0 0 30px color-mix(in srgb, var(--bridge-accent-strong) 16%, transparent),
         inset 0 0 22px rgba(255,255,255,.05);
+      animation: reactorRingSpin 42s linear infinite;
     }
     .bridge-reactor-core{
       inset: 58px;
@@ -8622,6 +8623,62 @@
       box-shadow:
         0 0 28px color-mix(in srgb, var(--bridge-accent-strong) 42%, transparent),
         0 0 84px color-mix(in srgb, var(--bridge-accent-strong) 18%, transparent);
+      animation: reactorCorePulse 4.6s ease-in-out infinite;
+    }
+    .bridge-reactor-core::before{
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 52%;
+      transform: translateX(-50%);
+      width: 16px;
+      height: 205px;
+      border-radius: 999px;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0) 0%,
+        color-mix(in srgb, var(--bridge-accent-strong) 34%, transparent) 46%,
+        color-mix(in srgb, var(--bridge-accent-strong) 62%, white) 88%,
+        rgba(255,255,255,.92) 100%);
+      filter: blur(5px);
+      mix-blend-mode: screen;
+      pointer-events: none;
+      animation: reactorBeamBreathe 4.6s ease-in-out infinite;
+    }
+    .bridge-reactor-core::after{
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 54%;
+      transform: translateX(-50%);
+      width: 3px;
+      height: 188px;
+      border-radius: 999px;
+      background: linear-gradient(180deg,
+        rgba(255,255,255,0) 0%,
+        rgba(255,255,255,.55) 68%,
+        rgba(255,255,255,.95) 100%);
+      filter: blur(.6px);
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+    @keyframes reactorRingSpin{
+      from{ transform: translate(-50%, -50%) rotate(0deg); }
+      to{ transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    @keyframes reactorCorePulse{
+      0%, 100%{ opacity: 1; }
+      50%{ opacity: .82; }
+    }
+    @keyframes reactorBeamBreathe{
+      0%, 100%{ opacity: .95; }
+      50%{ opacity: .58; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .bridge-reactor::after,
+      .bridge-reactor-core,
+      .bridge-reactor-core::before{
+        animation: none;
+      }
     }
     .bridge-note-strip .value{
       color: #f2fbff;
@@ -9255,6 +9312,25 @@
       .profile-shell-grid{
         grid-template-columns: 1fr;
       }
+      .command-bridge-grid{
+        grid-template-areas: "copy" "core" "side";
+      }
+      .bridge-action-rail{
+        grid-template-columns: 1fr;
+        grid-template-areas: "core" "side";
+      }
+      .bridge-command-copy{
+        max-width: none;
+        padding: 0 0 12px;
+      }
+      .bridge-core-shell{
+        width: 100%;
+      }
+      .bridge-side-dock{
+        width: 100%;
+        justify-self: stretch;
+        padding: 0;
+      }
       .profile-identity-stage{
         position: relative;
         top: auto;
@@ -9485,6 +9561,13 @@
     }
     body.mobile-preview-mode .route-ledger-grid{ grid-template-columns: 1fr; }
     body.mobile-preview-mode .hubble{ width: 68px; height: 68px; }
+    body.mobile-preview-mode .wide-space-copy{
+      left: 16px;
+      right: 16px;
+      bottom: 140px;
+      width: auto;
+      text-align: center;
+    }
     body.mobile-preview-mode .orbit-ship{
       left: 49.5%;
       top: 60.5%;
@@ -9708,6 +9791,7 @@
     }
     body.mobile-preview-mode .command-bridge-grid{
       grid-template-columns: 1fr;
+      grid-template-areas: "copy" "core" "side";
       gap: 12px;
       padding-top: 16px;
     }
@@ -9761,8 +9845,18 @@
       display: none;
     }
     body.mobile-preview-mode .bridge-action-rail{
+      grid-template-columns: 1fr;
+      grid-template-areas: "core" "side";
       gap: 8px;
       align-content: start;
+    }
+    body.mobile-preview-mode .bridge-core-shell{
+      width: 100%;
+    }
+    body.mobile-preview-mode .bridge-side-dock{
+      width: 100%;
+      justify-self: stretch;
+      padding: 0;
     }
     body.mobile-preview-mode .bridge-core{
       min-height: 208px;
@@ -9777,6 +9871,14 @@
     }
     body.mobile-preview-mode .bridge-reactor-core{
       inset: 32px;
+    }
+    body.mobile-preview-mode .bridge-reactor-core::before{
+      width: 10px;
+      height: 96px;
+    }
+    body.mobile-preview-mode .bridge-reactor-core::after{
+      width: 2px;
+      height: 86px;
     }
     body.mobile-preview-mode .bridge-reactor::before{
       width: 100%;
@@ -10046,6 +10148,29 @@
       }
       .route-ledger-grid{
         grid-template-columns: 1fr;
+      }
+      .wide-space-copy{
+        left: 16px;
+        right: 16px;
+        bottom: 140px;
+        width: auto;
+        text-align: center;
+      }
+      .command-bridge-grid{
+        grid-template-columns: 1fr;
+        grid-template-areas: "copy" "core" "side";
+      }
+      .bridge-action-rail{
+        grid-template-columns: 1fr;
+        grid-template-areas: "core" "side";
+      }
+      .bridge-core-shell{
+        width: 100%;
+      }
+      .bridge-side-dock{
+        width: 100%;
+        justify-self: stretch;
+        padding: 0;
       }
       .hubble{ width: 68px; height: 68px; }
       .base-stage{
