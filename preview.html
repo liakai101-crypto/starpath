@@ -35,11 +35,17 @@
       color-scheme: dark;
     }
 
+    /* Subset covers every glyph used in this file (both locales) plus
+       ASCII / CJK punctuation ranges; 289KB vs the 11.9MB full VF.
+       Regenerate with scripts/subset_font.py after adding new copy that
+       uses characters outside the current set. */
     @font-face{
       font-family: "NotoSansTC";
-      src: url("assets/fonts/NotoSansTC-VF.ttf") format("truetype");
+      src: url("assets/fonts/NotoSansTC-subset.woff2") format("woff2"),
+           url("assets/fonts/NotoSansTC-VF.ttf") format("truetype");
       font-weight: 100 900;
       font-style: normal;
+      font-display: swap;
     }
 
     *{ box-sizing: border-box; }
