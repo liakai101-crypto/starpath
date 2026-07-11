@@ -9424,6 +9424,17 @@
         transform: none;
         z-index: 3;
       }
+      .orbit-scale-indicator{
+        position: relative;
+        left: auto;
+        bottom: auto;
+        width: auto;
+        margin-top: 12px;
+        z-index: 3;
+      }
+      .base-stage .stage-heading{
+        display: none;
+      }
       .orbit-grid-main.left-collapsed .contact-card,
       .orbit-grid-main.right-collapsed .contact-card,
       .orbit-grid-main.left-collapsed.right-collapsed .contact-card,
@@ -9774,7 +9785,15 @@
     body.mobile-preview-mode .route-ledger-grid{ grid-template-columns: 1fr; }
     body.mobile-preview-mode .hubble{ width: 68px; height: 68px; }
     body.mobile-preview-mode .orbit-scale-indicator{
-      bottom: 172px;
+      position: relative;
+      left: auto;
+      bottom: auto;
+      width: auto;
+      margin-top: 12px;
+      z-index: 3;
+    }
+    body.mobile-preview-mode .base-stage .stage-heading{
+      display: none;
     }
     body.mobile-preview-mode .wide-space-copy{
       left: 16px;
