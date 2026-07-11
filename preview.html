@@ -872,7 +872,7 @@
       letter-spacing: -.04em;
       color: rgba(125,234,255,.92);
       line-height: .9;
-      min-width: 20px;
+      min-width: max-content;
     }
     .scene-banner-title{
       font-size: 26px;
@@ -1592,6 +1592,20 @@
       gap: 3px;
       margin-bottom: 12px;
       padding: 2px 0 0;
+      min-width: 0;
+    }
+    .orbit-left .panel-meta .eyebrow,
+    .orbit-left .panel-meta .title{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+    .orbit-left .panel-meta .eyebrow{
+      letter-spacing: .12em;
+    }
+    .orbit-left .panel-meta .title{
+      font-size: 15px;
     }
     .orbit-left-head,
     .orbit-system-head,
@@ -4199,6 +4213,15 @@
       backdrop-filter: blur(16px);
       transition: opacity .24s var(--ease), transform .24s var(--ease), border-color .24s var(--ease), background .24s var(--ease);
     }
+    /* Above 1200px the route ledger is an absolute bottom-center overlay and
+       the Hubble caption card sits at bottom-left, so the scale indicator and
+       the wide-space footnote must stack on the shelves above them or they
+       get painted over. */
+    @media (min-width: 1201px){
+      .orbit-scale-indicator{
+        bottom: 300px;
+      }
+    }
     .orbit-scale-label{
       font-size: 11px;
       letter-spacing: .22em;
@@ -4352,9 +4375,6 @@
     }
     html[lang="zh-TW"] .profile-signature{
       grid-template-columns: 106px minmax(0, 1fr);
-    }
-    html[lang="zh-TW"] .bridge-command-strip{
-      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     html[lang="zh-TW"] .dock-status-cluster,
     html[lang="zh-TW"] .dock-nav-shell{
@@ -4522,8 +4542,9 @@
     .wide-space-copy{
       left: auto;
       right: 28px;
-      bottom: 34px;
-      width: min(560px, calc(100% - 448px));
+      top: 70px;
+      bottom: auto;
+      width: min(420px, calc(100% - 56px));
       text-align: right;
       font-size: 12px;
       line-height: 1.5;
@@ -6307,7 +6328,7 @@
     }
     .bridge-command-strip{
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 8px;
       padding: 10px;
       border-radius: 18px;
@@ -6324,6 +6345,8 @@
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,.04);
       background: linear-gradient(180deg, rgba(255,255,255,.024), rgba(255,255,255,.006));
+      min-width: 0;
+      overflow-wrap: break-word;
     }
     .bridge-command-chip .chip-label{
       color: rgba(225,232,238,.46);
@@ -7357,6 +7380,9 @@
       justify-content: space-between;
       gap: 10px;
       z-index: 3;
+    }
+    .center-stage:has(.target-hud.collapsed) .stage-badges{
+      right: 386px;
     }
     .stage-badges .pill{
       transition: border-color .28s var(--ease), background .28s var(--ease), color .28s var(--ease), box-shadow .28s var(--ease), transform .28s var(--ease);
@@ -8910,7 +8936,7 @@
     .profile-hero-copy{
       position: absolute;
       left: 24px;
-      top: 24px;
+      top: 76px;
       z-index: 2;
       max-width: 256px;
       padding: 12px 14px;
@@ -9577,10 +9603,14 @@
     }
     body.mobile-preview-mode .route-ledger-grid{ grid-template-columns: 1fr; }
     body.mobile-preview-mode .hubble{ width: 68px; height: 68px; }
+    body.mobile-preview-mode .orbit-scale-indicator{
+      bottom: 172px;
+    }
     body.mobile-preview-mode .wide-space-copy{
       left: 16px;
       right: 16px;
-      bottom: 140px;
+      top: 68px;
+      bottom: auto;
       width: auto;
       text-align: center;
     }
@@ -9804,6 +9834,10 @@
     }
     body.mobile-preview-mode .command-workbench{
       inset: 340px 20px 24px;
+    }
+    body.mobile-preview-mode .signal-page-grid{
+      grid-template-columns: 1fr;
+      min-height: 0;
     }
     body.mobile-preview-mode .command-bridge-grid{
       grid-template-columns: 1fr;
@@ -10057,10 +10091,17 @@
       line-height: 1.4;
     }
     body.mobile-preview-mode .profile-identity-stage{
+      position: relative;
+      top: auto;
+      right: auto;
       margin-top: 14px;
       width: 100%;
       padding: 14px;
       border-radius: 18px;
+    }
+    body.mobile-preview-mode .identity-sheet,
+    body.mobile-preview-mode .identity-sheet-copy{
+      grid-template-columns: 1fr;
     }
     body.mobile-preview-mode .profile-shell-grid{
       grid-template-columns: 1fr;
@@ -10168,7 +10209,8 @@
       .wide-space-copy{
         left: 16px;
         right: 16px;
-        bottom: 140px;
+        top: 68px;
+        bottom: auto;
         width: auto;
         text-align: center;
       }
@@ -10916,7 +10958,7 @@
                             </div>
                             <p class="bridge-eyebrow" id="baseWorkbenchEyebrow">Command Core</p>
                             <h3 class="bridge-title" id="baseWorkbenchTitle">Bridge reactor</h3>
-                            <p class="bridge-copy" id="baseWorkbenchCopy">The Command Core should read as one live bridge: a single reactor, a single lane, and one outgoing move held in focus.</p>
+                            <p class="bridge-copy" id="baseWorkbenchCopy">One live bridge: a single reactor, a single lane, and one outgoing move held in focus.</p>
                           </div>
                           <div class="bridge-viewport">
                             <div class="bridge-viewport-grid" aria-hidden="true"></div>
@@ -12411,7 +12453,7 @@
         bridgeReactorMeaningTitle: 'Next move',
         baseWorkbenchStateLabel: 'Channel state',
         baseWorkbenchTitle: 'Bridge reactor',
-        baseWorkbenchCopy: 'The Command Core should read as one live bridge: a single reactor, a single lane, and one outgoing move held in focus.',
+        baseWorkbenchCopy: 'One live bridge: a single reactor, a single lane, and one outgoing move held in focus.',
         commandLaneLabel: 'Live signal lane',
         commandLaneMirrorLabel: 'Live signal lane',
         commandPresetSoft: 'Soft ping',
@@ -12571,7 +12613,7 @@
         bridgeReactorMeaningTitle: '下一步',
         baseWorkbenchStateLabel: '通道狀態',
         baseWorkbenchTitle: '艦橋反應爐',
-        baseWorkbenchCopy: 'Command Core 應該被讀成一個活著的橋艙：一個核心反應爐、一條當前通道，以及一次明確的外送動作。 ',
+        baseWorkbenchCopy: '一個活著的橋艙：一個核心反應爐、一條當前通道，以及一次明確的外送動作。',
         commandLaneLabel: '即時訊號通道',
         commandLaneMirrorLabel: '即時訊號通道',
         commandPresetSoft: '輕量問候',
