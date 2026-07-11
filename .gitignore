@@ -58,3 +58,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Node dev tooling (layout QA test)
+node_modules/

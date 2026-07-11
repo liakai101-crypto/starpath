@@ -93,6 +93,20 @@ Important note:
 node test\preview_scene_structure.test.cjs
 ```
 
+### HTML prototype layout QA (occlusion + overflow)
+
+```powershell
+npm install
+node test\preview_layout_qa.test.cjs
+```
+
+Drives the system Edge/Chrome headless (via `puppeteer-core`, no browser
+download) across all scenes x zh/en x desktop/mobile-preview and fails when
+visible text is covered by another painted element or overflows its box.
+This is the regression guard for the layout-collision class of bugs that the
+structure check cannot see. Accepted exceptions live in the `ALLOW` list at
+the top of the test file.
+
 ### Flutter tests
 
 ```powershell

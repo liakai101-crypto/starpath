@@ -1,0 +1,18 @@
+{
+  "name": "starpath",
+  "version": "1.0.0",
+  "private": true,
+  "description": "StarPath prototype dev tooling (the product surfaces are preview.html and the Flutter skeleton in lib/)",
+  "scripts": {
+    "test:structure": "node test/preview_scene_structure.test.cjs",
+    "test:layout": "node test/preview_layout_qa.test.cjs",
+    "test": "node test/preview_scene_structure.test.cjs && node test/preview_layout_qa.test.cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liakai101-crypto/starpath.git"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^25.3.0"
+  }
+}
