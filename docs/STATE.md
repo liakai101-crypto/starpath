@@ -53,13 +53,15 @@ The Flutter app in `lib/` remains important, but it is not the current UI mainli
 
 ## Known TODO
 
-- Deploy-time: subset `assets/fonts/NotoSansTC-VF.ttf` (11.9 MB) before any
-  remote hosting; it is instant from local disk but far too heavy for the web.
-  Left untouched for now because dynamic strings make glyph subsetting risky
-  without a text-extraction step.
-- Strengthen deep-space motion and scale
-- Upgrade wormhole transit sequence
-- Decide later whether to port the finished prototype back into Flutter UI
+- Regenerate `assets/fonts/NotoSansTC-subset.woff2` via
+  `python scripts/subset_font.py` whenever copy adds characters outside the
+  current 1310-codepoint set (missing glyphs fall back to the full TTF /
+  system font).
+- Backend, real AI signal generation, and the Flutter port are scoped with
+  decision points and a recommended order in
+  [`docs/INTEGRATION.md`](/C:/starpath/docs/INTEGRATION.md). All three are
+  gated on product decisions (key/hosting, local-first vs cloud, visual-spec
+  sign-off), not on prototype work.
 
 ## Build And Run
 
