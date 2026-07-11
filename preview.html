@@ -9423,6 +9423,7 @@
         margin-top: 12px;
         transform: none;
         z-index: 3;
+        transition: none;
       }
       .orbit-scale-indicator{
         position: relative;
@@ -9431,6 +9432,9 @@
         width: auto;
         margin-top: 12px;
         z-index: 3;
+      }
+      .center-stage[data-view-mode="wide"] .orbit-scale-indicator{
+        margin-top: 122px;
       }
       .base-stage .stage-heading{
         display: none;
@@ -9678,12 +9682,22 @@
       margin-top: 12px;
       transform: none;
       z-index: 3;
+      /* layout-mode conversion, not a user-facing state change: never animate */
+      transition: none;
     }
     body.mobile-preview-mode .orbit-grid-main.left-collapsed .contact-card,
     body.mobile-preview-mode .orbit-grid-main.right-collapsed .contact-card,
-    body.mobile-preview-mode .orbit-grid-main.left-collapsed.right-collapsed .contact-card{
+    body.mobile-preview-mode .orbit-grid-main.left-collapsed.right-collapsed .contact-card,
+    body.mobile-preview-mode .orbit-grid-main.right-collapsed .caption-card,
+    body.mobile-preview-mode .orbit-grid-main.left-collapsed.right-collapsed .caption-card{
+      left: auto;
       right: auto;
       bottom: auto;
+    }
+    body.mobile-preview-mode .route-ledger.collapsed{
+      left: auto;
+      width: auto;
+      transform: none;
     }
     body.mobile-preview-mode .center-stage{
       padding-bottom: 168px;
@@ -9789,8 +9803,13 @@
       left: auto;
       bottom: auto;
       width: auto;
-      margin-top: 12px;
+      margin-top: 68px;
       z-index: 3;
+    }
+    /* In wide view the observation footnote is pinned to the stage top;
+       give the flow-stacked indicator clearance so they don't meet. */
+    body.mobile-preview-mode .center-stage[data-view-mode="wide"] .orbit-scale-indicator{
+      margin-top: 122px;
     }
     body.mobile-preview-mode .base-stage .stage-heading{
       display: none;
