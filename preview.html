@@ -2614,6 +2614,50 @@
       filter: blur(14px);
       transform: scale(.84) rotate(-8deg);
     }
+    /* Corridor rush: light spokes radiating from the vanishing point
+       (rotation = corridor spin) and concentric rings racing outward
+       (= forward velocity). Lives on its own node because .tunnel-glow's
+       blur(14px) would erase the thin lines. Idles at opacity 0. */
+    .tunnel-rush{
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .tunnel-rush::before,
+    .tunnel-rush::after{
+      content: "";
+      position: absolute;
+      inset: -22%;
+      pointer-events: none;
+      opacity: 0;
+    }
+    .tunnel-rush::before{
+      background: repeating-conic-gradient(from 0deg at 50% 50%,
+        rgba(255,255,255,0) 0deg 5.2deg,
+        rgba(190,236,255,.30) 5.5deg 5.9deg,
+        rgba(255,255,255,0) 6.2deg 11.6deg,
+        rgba(255,222,170,.20) 11.8deg 12.1deg,
+        rgba(255,255,255,0) 12.4deg 17.2deg);
+      -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 7%, rgba(0,0,0,.92) 26%, rgba(0,0,0,.5) 46%, transparent 64%);
+      mask-image: radial-gradient(circle at 50% 50%, transparent 7%, rgba(0,0,0,.92) 26%, rgba(0,0,0,.5) 46%, transparent 64%);
+    }
+    .tunnel-rush::after{
+      background: repeating-radial-gradient(circle at 50% 50%,
+        rgba(255,255,255,0) 0 44px,
+        rgba(108,227,246,.18) 45px 47px,
+        rgba(255,255,255,0) 48px 92px);
+      -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 5%, rgba(0,0,0,.85) 30%, transparent 60%);
+      mask-image: radial-gradient(circle at 50% 50%, transparent 5%, rgba(0,0,0,.85) 30%, transparent 60%);
+    }
+    @keyframes tunnelSpokesSpin{
+      from{ transform: rotate(0deg); opacity: .9; }
+      to{ transform: rotate(24deg); opacity: .9; }
+    }
+    @keyframes tunnelRingsRush{
+      0%{ transform: scale(.72); opacity: 0; }
+      18%{ opacity: .85; }
+      100%{ transform: scale(1.42); opacity: 0; }
+    }
     .center-stage.wormhole-transit-active .stage-planet,
     .center-stage.wormhole-transit-active .space-haze,
     .center-stage.wormhole-transit-active .nav-beacon,
@@ -2658,6 +2702,12 @@
     }
     .center-stage.wormhole-transit-active .tunnel-glow{
       animation: wormholeTunnelGlow 1.18s ease-in-out infinite;
+    }
+    .center-stage.wormhole-transit-active .tunnel-rush::before{
+      animation: tunnelSpokesSpin 1.6s linear infinite;
+    }
+    .center-stage.wormhole-transit-active .tunnel-rush::after{
+      animation: tunnelRingsRush .92s linear infinite;
     }
     .center-stage.wormhole-transit-active .wormhole-tunnel::before{
       animation: wormholeTunnelStreak 1.02s linear infinite;
@@ -10708,6 +10758,7 @@
                   <span class="tunnel-lane b"></span>
                   <span class="tunnel-lane c"></span>
                   <span class="tunnel-glow"></span>
+                  <span class="tunnel-rush"></span>
                 </div>
                 <div class="approach-vector" aria-hidden="true"></div>
                 <div class="approach-vector-secondary" aria-hidden="true"></div>
