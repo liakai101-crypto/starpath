@@ -4492,6 +4492,62 @@
       opacity: .18;
       animation: deepStarsDriftB 44s linear infinite;
     }
+    /* Far field: the slowest, faintest star layer. The three-speed parallax
+       (26s / 44s / 96s) is what sells the depth. */
+    .deep-space-stars.layer-c{
+      background-image:
+        radial-gradient(circle at 22% 34%, rgba(255,255,255,.5) 0 .6px, transparent 1.1px),
+        radial-gradient(circle at 48% 12%, rgba(210,236,255,.42) 0 .6px, transparent 1.1px),
+        radial-gradient(circle at 68% 56%, rgba(255,255,255,.36) 0 .6px, transparent 1.1px),
+        radial-gradient(circle at 86% 82%, rgba(255,232,196,.34) 0 .6px, transparent 1.1px),
+        radial-gradient(circle at 8% 78%, rgba(255,255,255,.3) 0 .6px, transparent 1.1px);
+      background-size: 640px 460px;
+      opacity: .12;
+      animation: deepStarsDriftC 96s linear infinite;
+    }
+    @keyframes deepStarsDriftC{
+      from{ background-position: 0 0; }
+      to{ background-position: -640px 120px; }
+    }
+    /* One vast, nearly subliminal galactic streak behind everything: the
+       "you are very small" backdrop. */
+    .deep-space-galaxy{
+      position: absolute;
+      left: -30%;
+      right: -30%;
+      top: 12%;
+      height: 46%;
+      background:
+        linear-gradient(112deg,
+          rgba(140,170,214,0) 8%,
+          rgba(140,170,214,.05) 30%,
+          rgba(214,226,246,.09) 46%,
+          rgba(255,236,204,.06) 58%,
+          rgba(140,170,214,.04) 72%,
+          rgba(140,170,214,0) 90%);
+      transform: rotate(-9deg);
+      filter: blur(30px);
+      opacity: .8;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      animation: deepGalaxyDrift 120s linear infinite alternate;
+      will-change: transform;
+    }
+    @keyframes deepGalaxyDrift{
+      from{ transform: rotate(-9deg) translate3d(-2%, 0, 0); }
+      to{ transform: rotate(-9deg) translate3d(2%, -1%, 0); }
+    }
+    /* Edge falloff into true void: the center holds the light, the borders
+       read as endless dark. */
+    .deep-space-vignette{
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse at 50% 44%,
+        rgba(2,4,9,0) 42%,
+        rgba(2,4,9,.22) 72%,
+        rgba(2,4,9,.5) 100%);
+    }
     .wide-space-layer::before,
     .wide-space-layer::after{
       content: "";
@@ -4575,6 +4631,19 @@
       opacity: .42;
       filter: blur(.2px);
       animation-duration: 8.2s;
+    }
+    /* Depth staggering: ghosts at three implied distances instead of one
+       uniform sprite size. Size + filter channels stay untouched by the
+       pulse animation (which owns transform/opacity). */
+    .wide-marker.ghost:nth-of-type(3n){
+      width: 9px;
+      height: 9px;
+      filter: opacity(.55) blur(.5px);
+    }
+    .wide-marker.ghost:nth-of-type(3n+1){
+      width: 11px;
+      height: 11px;
+      filter: opacity(.75) blur(.3px);
     }
     .wide-marker.selected{
       width: 22px;
@@ -10613,12 +10682,15 @@
                 <div class="flight-lane three"></div>
                 <div class="wide-space-layer" id="wideSpaceLayer" aria-hidden="true">
                   <div class="deep-space-parallax">
+                    <div class="deep-space-galaxy"></div>
                     <div class="deep-space-band band-a"></div>
                     <div class="deep-space-band band-b"></div>
                     <div class="deep-space-band band-c"></div>
                     <div class="deep-space-stars layer-a"></div>
                     <div class="deep-space-stars layer-b"></div>
+                    <div class="deep-space-stars layer-c"></div>
                   </div>
+                  <div class="deep-space-vignette"></div>
                   <div class="wide-space-fog"></div>
                   <div class="wide-space-grid"></div>
                   <div class="wide-space-markers" id="wideSpaceMarkers"></div>
