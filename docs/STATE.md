@@ -45,15 +45,20 @@ The Flutter app in `lib/` remains important, but it is not the current UI mainli
 - Distant-target markers (Morgan/Ethan) sit fully behind the flow cards at
   narrow widths; invisible rather than broken, but they are not reachable there
 - `preview_scene_structure.test.cjs` is shallow and can pass while the UI still feels wrong
+  (use `test/preview_layout_qa.test.cjs` for layout regressions)
+- Software rendering (no GPU) runs Orbit at single-digit FPS; the scene's
+  layered blur art is inherently GPU-dependent. GPU path measures 110+ FPS
+  after the July 2026 perf pass (was 43). Wormhole, invisibility, and Signal
+  Deck flows were driven end-to-end headlessly with zero console errors.
 
 ## Known TODO
 
-- Finish Command Core bridge scene
-- Finish Profile Archive identity hierarchy
+- Deploy-time: subset `assets/fonts/NotoSansTC-VF.ttf` (11.9 MB) before any
+  remote hosting; it is instant from local disk but far too heavy for the web.
+  Left untouched for now because dynamic strings make glyph subsetting risky
+  without a text-extraction step.
 - Strengthen deep-space motion and scale
 - Upgrade wormhole transit sequence
-- Perform full Traditional Chinese spacing and wrapping pass
-- Perform full mobile QA pass
 - Decide later whether to port the finished prototype back into Flutter UI
 
 ## Build And Run
