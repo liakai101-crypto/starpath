@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <!-- Ethan: broad-shouldered, cropped hair, key light upper-left, teal rim. -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a1520"/>
+      <stop offset="1" stop-color="#050b10"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="30%" cy="30%" r="60%">
+      <stop offset="0" stop-color="#9cf0cd" stop-opacity=".4"/>
+      <stop offset=".4" stop-color="#3f8f74" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#0a1520" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vig" cx="50%" cy="46%" r="72%">
+      <stop offset=".62" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#02040a" stop-opacity=".78"/>
+    </radialGradient>
+    <filter id="blur6"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="blur2"><feGaussianBlur stdDeviation="2"/></filter>
+  </defs>
+  <rect width="240" height="240" fill="url(#bg)"/>
+  <rect width="240" height="240" fill="url(#glow)"/>
+  <g fill="#fff">
+    <circle cx="190" cy="52" r="1.2" opacity=".5"/>
+    <circle cx="46" cy="150" r="1" opacity=".35"/>
+    <circle cx="206" cy="176" r="1.1" opacity=".4"/>
+    <circle cx="150" cy="28" r="1.2" opacity=".5"/>
+  </g>
+  <circle cx="66" cy="52" r="22" fill="#c9f7e4" opacity=".14" filter="url(#blur6)"/>
+  <!-- rim copy shifted toward the light -->
+  <path transform="translate(-4,-3)" fill="#7ce7b2" opacity=".9" d="M8 240 C20 192 52 174 90 168 L94 156 C84 146 78 130 78 112 C78 92 88 74 104 66 C110 56 128 56 134 66 C152 74 162 92 162 112 C162 130 156 146 146 156 L150 168 C188 174 220 192 232 240 Z"/>
+  <!-- soft bloom along the lit edge -->
+  <path fill="none" stroke="#aef2d4" stroke-width="5" stroke-opacity=".5" filter="url(#blur2)" d="M100 70 C88 80 82 96 80 112 C80 130 86 146 94 156"/>
+  <!-- bust: broad shoulders, cropped flat hair -->
+  <path fill="#04080c" d="M8 240 C20 192 52 174 90 168 L94 156 C84 146 78 130 78 112 C78 92 88 74 104 66 C110 56 128 56 134 66 C152 74 162 92 162 112 C162 130 156 146 146 156 L150 168 C188 174 220 192 232 240 Z"/>
+  <rect width="240" height="240" fill="url(#vig)"/>
+</svg>

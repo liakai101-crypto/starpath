@@ -8301,6 +8301,38 @@
       font-weight: 900;
       letter-spacing: -.04em;
       color: #f4fbff;
+      overflow: hidden;
+    }
+    /* Portrait system: cinematic backlit busts (assets/portraits/<name>.svg).
+       Drop a real photo at the same path and point PORTRAIT_SOURCES at it to
+       upgrade; every slot below is object-fit ready. */
+    .portrait-img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: inherit;
+    }
+    .signal-portrait{
+      width: 30px;
+      height: 30px;
+      border-radius: 11px;
+      object-fit: cover;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 6px 14px rgba(0,0,0,.28);
+    }
+    .signal-head .signal-title{
+      flex: 1;
+      min-width: 0;
+    }
+    .dock-portrait{
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      object-fit: cover;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255,255,255,.10);
     }
     .identity-kicker{
       margin: 0;
@@ -11755,6 +11787,7 @@
               </div>
             </div>
             <div class="dock-status-cluster">
+              <img class="dock-portrait" id="dockTargetPortrait" src="assets/portraits/alex.svg" alt="">
               <div class="dock-status-copy">
                 <div class="dock-status-label">Current Target</div>
                 <div class="dock-status-value" id="dockTargetValue">Iris</div>
@@ -13125,6 +13158,19 @@
       return value && typeof value === 'object' ? (value[currentLang] ?? value.en ?? '') : value;
     }
 
+    // Photo-style portrait sources. To upgrade a friend to a real photograph,
+    // drop the file in assets/portraits/ and change the path here.
+    const PORTRAIT_SOURCES = {
+      alex: 'assets/portraits/alex.svg',
+      iris: 'assets/portraits/iris.svg',
+      morgan: 'assets/portraits/morgan.svg',
+      ethan: 'assets/portraits/ethan.svg',
+    };
+    function portraitFor(item){
+      const key = (item?.focus?.en || '').toLowerCase();
+      return PORTRAIT_SOURCES[key] || null;
+    }
+
     function syncMobilePreviewToggle(){
       if (!mobilePreviewToggle) return;
       document.body.classList.toggle('mobile-preview-mode', uiState.mobilePreview);
@@ -13188,6 +13234,12 @@
       }
       if (dockTargetValue) {
         dockTargetValue.textContent = localize(item.focus);
+      }
+      const dockTargetPortrait = document.getElementById('dockTargetPortrait');
+      if (dockTargetPortrait) {
+        const portraitSrc = portraitFor(item);
+        dockTargetPortrait.src = portraitSrc || '';
+        dockTargetPortrait.style.display = portraitSrc ? '' : 'none';
       }
       if (dockModeValue) {
         dockModeValue.textContent = localize(mode.ledger);
@@ -13265,8 +13317,10 @@
             : 'Outside the current Local Orbit. Lock first, then cross by wormhole.');
         signal.classList.toggle('distant-route', tier === 'distant');
         signal.classList.toggle('archived-route', isArchived);
+        const portraitSrc = portraitFor(item);
         signal.innerHTML = `
           <div class="signal-head">
+            ${portraitSrc ? `<img class="signal-portrait" src="${portraitSrc}" alt="">` : ''}
             <div class="signal-title">${localize(item.focus)}</div>
             <div class="signal-tag ${tier} ${isSelected ? 'selected' : ''}">${tierLabel}</div>
           </div>
@@ -14826,7 +14880,14 @@
         ? `已解鎖 ${item.unlocked} / 3`
         : `Unlocked ${item.unlocked} / 3`;
       capsuleShareSummary.innerHTML = localize(item.capsuleShare);
-      if (capsuleIdentityAvatar) capsuleIdentityAvatar.textContent = localize(item.focus).slice(0, 1).toUpperCase();
+      if (capsuleIdentityAvatar) {
+        const portraitSrc = portraitFor(item);
+        if (portraitSrc) {
+          capsuleIdentityAvatar.innerHTML = `<img class="portrait-img" src="${portraitSrc}" alt="">`;
+        } else {
+          capsuleIdentityAvatar.textContent = localize(item.focus).slice(0, 1).toUpperCase();
+        }
+      }
       if (capsuleIdentityName) capsuleIdentityName.textContent = localize(item.focus);
       if (capsuleIdentityRole) capsuleIdentityRole.textContent = localize(item.summary);
       if (capsuleIdentityScore) capsuleIdentityScore.textContent = item.telemetry.warmth;

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <!-- Morgan: distant sector. Top-knot silhouette, key light upper-right, violet rim. -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d1122"/>
+      <stop offset="1" stop-color="#060812"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="70%" cy="26%" r="60%">
+      <stop offset="0" stop-color="#c8b8ff" stop-opacity=".42"/>
+      <stop offset=".4" stop-color="#6f5fae" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#0a0f20" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vig" cx="50%" cy="46%" r="72%">
+      <stop offset=".62" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#02040a" stop-opacity=".78"/>
+    </radialGradient>
+    <filter id="blur6"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="blur2"><feGaussianBlur stdDeviation="2"/></filter>
+  </defs>
+  <rect width="240" height="240" fill="url(#bg)"/>
+  <rect width="240" height="240" fill="url(#glow)"/>
+  <g fill="#fff">
+    <circle cx="42" cy="66" r="1.2" opacity=".5"/>
+    <circle cx="200" cy="140" r="1.1" opacity=".4"/>
+    <circle cx="70" cy="182" r="1" opacity=".3"/>
+    <circle cx="170" cy="30" r="1.3" opacity=".55"/>
+  </g>
+  <circle cx="172" cy="50" r="20" fill="#e2d9ff" opacity=".15" filter="url(#blur6)"/>
+  <!-- rim copy shifted toward the light -->
+  <path transform="translate(4,-3)" fill="#b9a8ff" opacity=".9" d="M26 240 C38 200 64 182 96 174 L100 160 C88 150 82 134 82 116 C82 100 88 86 98 78 C96 70 98 62 104 58 C102 44 110 34 120 36 C130 34 138 44 136 58 C142 62 144 70 142 78 C152 86 158 100 158 116 C158 134 152 150 140 160 L144 174 C176 182 202 200 214 240 Z"/>
+  <!-- soft bloom along the lit edge -->
+  <path fill="none" stroke="#d5c9ff" stroke-width="5" stroke-opacity=".5" filter="url(#blur2)" d="M138 62 C146 70 152 84 152 100 C154 118 150 138 142 152"/>
+  <!-- bust: sleek profile with a high top-knot -->
+  <path fill="#05070e" d="M26 240 C38 200 64 182 96 174 L100 160 C88 150 82 134 82 116 C82 100 88 86 98 78 C96 70 98 62 104 58 C102 44 110 34 120 36 C130 34 138 44 136 58 C142 62 144 70 142 78 C152 86 158 100 158 116 C158 134 152 150 140 160 L144 174 C176 182 202 200 214 240 Z"/>
+  <rect width="240" height="240" fill="url(#vig)"/>
+</svg>

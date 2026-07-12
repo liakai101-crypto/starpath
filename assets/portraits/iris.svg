@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+  <!-- Iris: steady late-night replies. Long straight hair, key light upper-left, cyan rim. -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0a1424"/>
+      <stop offset="1" stop-color="#050912"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="28%" cy="28%" r="62%">
+      <stop offset="0" stop-color="#9deaff" stop-opacity=".46"/>
+      <stop offset=".4" stop-color="#3f7f9e" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#0a1120" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="vig" cx="50%" cy="46%" r="72%">
+      <stop offset=".62" stop-color="#000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#02040a" stop-opacity=".78"/>
+    </radialGradient>
+    <filter id="blur6"><feGaussianBlur stdDeviation="6"/></filter>
+    <filter id="blur2"><feGaussianBlur stdDeviation="2"/></filter>
+  </defs>
+  <rect width="240" height="240" fill="url(#bg)"/>
+  <rect width="240" height="240" fill="url(#glow)"/>
+  <g fill="#fff">
+    <circle cx="196" cy="60" r="1.2" opacity=".5"/>
+    <circle cx="38" cy="128" r="1.1" opacity=".4"/>
+    <circle cx="176" cy="168" r="1" opacity=".35"/>
+    <circle cx="66" cy="38" r="1.3" opacity=".55"/>
+  </g>
+  <circle cx="62" cy="56" r="24" fill="#c9f2ff" opacity=".15" filter="url(#blur6)"/>
+  <!-- rim copy shifted toward the light -->
+  <path transform="translate(-4,-3)" fill="#7deaff" opacity=".9" d="M20 240 C26 206 40 190 62 182 C56 168 54 150 56 128 C50 108 54 84 66 68 C76 52 96 44 118 44 C140 44 160 54 168 72 C178 88 180 110 174 130 C176 152 174 170 168 184 C192 192 208 208 220 240 Z"/>
+  <!-- soft bloom along the lit edge -->
+  <path fill="none" stroke="#b9f1ff" stroke-width="5" stroke-opacity=".5" filter="url(#blur2)" d="M64 70 C54 88 52 112 58 132 C54 152 56 170 62 182"/>
+  <!-- bust: long straight hair falling past the shoulders -->
+  <path fill="#04070d" d="M20 240 C26 206 40 190 62 182 C56 168 54 150 56 128 C50 108 54 84 66 68 C76 52 96 44 118 44 C140 44 160 54 168 72 C178 88 180 110 174 130 C176 152 174 170 168 184 C192 192 208 208 220 240 Z"/>
+  <rect width="240" height="240" fill="url(#vig)"/>
+</svg>
