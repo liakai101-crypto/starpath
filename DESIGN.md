@@ -29,7 +29,20 @@ The interface is a ship's bridge; panels are glass instruments over a stage.
 | `--accent` | `#6ce3f6` | signature cyan (actions, live state) |
 | `--accent-2` | `#9ba7ff` | violet (locked / archive / mystery) |
 | `--accent-3` | `#7ce7b2` | green (positive / stable) |
-| `--warm` / `--warm-strong` | `#ffd89c` / `#ffcf9a` | amber counterweight (heat, human warmth) |
+| `--warm` / `--warm-strong` | `#ffb19c` / `#ffb09a` | signature coral-rose counterweight (heat, human warmth) |
+
+**Signature hue, not generic amber.** The warm accent originally sat at
+~hue 30-40° — the first-reflex "sci-fi space app" amber, repeated almost
+200 times across the file in ~40 slightly-drifted variants (phase tints,
+glows, borders, one portrait). Rotated the whole family to **hue 13°**
+(coral-rose) with a small saturation lift, preserving each variant's
+original lightness so every existing gradient/glow relationship stays
+intact — this was a systematic hue rotation (`scripts/` has no permanent
+copy; see commit history for the generator), not a one-off restyle. Applies
+everywhere `--bridge-warm` / `--bridge-accent-strong` resolve warm and to
+Alex's portrait rim (the friend whose copy literally says "warm channel").
+`--nebula-warm` (`rgba(210,160,112,.28)`, ambient background haze) is a
+separate, deliberately muted environmental tone — left alone.
 
 Contrast floors (enforced by the a11y probe): micro-labels on dark surfaces
 use white ink at **alpha ≥ .72**; body/meta text ≥ .74. Anything lower fails

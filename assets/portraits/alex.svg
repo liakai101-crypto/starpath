@@ -1,13 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
-  <!-- Alex: warm channel. Backlit bust, key light upper-right, amber rim. -->
+  <!-- Alex: warm channel. Backlit bust, key light upper-right, coral rim
+       (matches the app's signature warm accent, not generic amber). -->
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#0c1322"/>
       <stop offset="1" stop-color="#060a13"/>
     </linearGradient>
     <radialGradient id="glow" cx="72%" cy="30%" r="62%">
-      <stop offset="0" stop-color="#ffd89c" stop-opacity=".5"/>
-      <stop offset=".4" stop-color="#c98d52" stop-opacity=".22"/>
+      <stop offset="0" stop-color="#ffb19c" stop-opacity=".5"/>
+      <stop offset=".4" stop-color="#cd6a4e" stop-opacity=".22"/>
       <stop offset="1" stop-color="#0a1120" stop-opacity="0"/>
     </radialGradient>
     <radialGradient id="vig" cx="50%" cy="46%" r="72%">
@@ -25,11 +26,11 @@
     <circle cx="58" cy="150" r="1" opacity=".35"/>
     <circle cx="188" cy="36" r="1.1" opacity=".45"/>
   </g>
-  <circle cx="176" cy="58" r="22" fill="#ffe9c4" opacity=".16" filter="url(#blur6)"/>
+  <circle cx="176" cy="58" r="22" fill="#ffd1c4" opacity=".16" filter="url(#blur6)"/>
   <!-- rim copy shifted toward the light -->
-  <path transform="translate(4,-3)" fill="#ffcf9a" opacity=".92" d="M18 240 C30 196 58 178 92 170 L96 158 C84 148 76 132 76 112 C76 104 78 96 82 88 C78 80 82 70 90 66 C88 58 96 50 104 52 C106 44 116 42 122 46 C130 40 140 46 142 54 C150 54 156 62 154 70 C160 76 162 86 160 94 C162 112 158 132 148 146 C144 154 140 160 138 164 L142 172 C176 180 208 200 222 240 Z"/>
+  <path transform="translate(4,-3)" fill="#ffb09a" opacity=".92" d="M18 240 C30 196 58 178 92 170 L96 158 C84 148 76 132 76 112 C76 104 78 96 82 88 C78 80 82 70 90 66 C88 58 96 50 104 52 C106 44 116 42 122 46 C130 40 140 46 142 54 C150 54 156 62 154 70 C160 76 162 86 160 94 C162 112 158 132 148 146 C144 154 140 160 138 164 L142 172 C176 180 208 200 222 240 Z"/>
   <!-- soft bloom along the lit edge -->
-  <path fill="none" stroke="#ffdcae" stroke-width="5" stroke-opacity=".5" filter="url(#blur2)" d="M150 62 C158 72 164 84 162 96 C164 114 159 134 150 148"/>
+  <path fill="none" stroke="#ffc0ae" stroke-width="5" stroke-opacity=".5" filter="url(#blur2)" d="M150 62 C158 72 164 84 162 96 C164 114 159 134 150 148"/>
   <!-- bust -->
   <path fill="#05080e" d="M18 240 C30 196 58 178 92 170 L96 158 C84 148 76 132 76 112 C76 104 78 96 82 88 C78 80 82 70 90 66 C88 58 96 50 104 52 C106 44 116 42 122 46 C130 40 140 46 142 54 C150 54 156 62 154 70 C160 76 162 86 160 94 C162 112 158 132 148 146 C144 154 140 160 138 164 L142 172 C176 180 208 200 222 240 Z"/>
   <rect width="240" height="240" fill="url(#vig)"/>
