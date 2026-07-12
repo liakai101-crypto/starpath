@@ -57,11 +57,20 @@ hard-code a posture color at a use site.
 
 ## 2. Typography
 
-- Single family: **Noto Sans TC** (subset woff2, 289KB; regenerate with
+- Body/UI family: **Noto Sans TC** (subset woff2, 289KB; regenerate with
   `scripts/subset_font.py`). Weights in use: 400, 800, 900.
+- Display family: **Rajdhani** (Light/Medium/Bold, self-hosted Latin woff2,
+  SIL OFL — `assets/fonts/OFL-Rajdhani.txt`). Contrast-axis pairing:
+  geometric/technical display against Noto Sans TC's humanist body, per the
+  product register's "one family is often right, but a display/body pair is
+  fine when the display carries a real brand moment" allowance. Scoped to
+  exactly two always-Latin, un-localized touchpoints — never applied to a
+  shared class that also carries sentence copy or CJK content:
+  - `.brand-masthead-title` / `#orbitTitle` — the "StarPath" wordmark
+  - `.scene-banner-title` — the four scene names (Orbit / Command Core /
+    Profile Archive / Signal Deck)
 - Scale (px): 9/10 micro-labels (uppercase, tracked ≥ .14em) · 11–13 meta &
-  body · 14–16 values · 18–22 card titles · 26–34 scene titles · brand
-  wordmark via letterspacing, not a display face.
+  body · 14–16 values · 18–22 card titles · 26–34 scene titles.
 - zh-TW rules: `word-break: keep-all` + `overflow-wrap: break-word`
   (both, always — keep-all alone overflows narrow containers); tracked
   uppercase treatments get letter-spacing reduced ~40% and

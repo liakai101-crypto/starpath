@@ -1,0 +1,5 @@
+Rajdhani is licensed under the SIL Open Font License, Version 1.1.
+Designer: Indian Type Foundry.
+Source: Google Fonts (https://fonts.google.com/specimen/Rajdhani).
+Weights used in this project: Light (300), Medium (500), Bold (700), Latin subset.
+Full license text: https://openfontlicense.org

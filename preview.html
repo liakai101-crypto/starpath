@@ -61,6 +61,32 @@
       font-style: normal;
       font-display: swap;
     }
+    /* Display face for the brand wordmark and the four scene-banner titles
+       only (both are always-Latin, un-localized content — see DESIGN.md
+       #2). Self-hosted, Latin subset, SIL OFL (assets/fonts/OFL-Rajdhani.txt).
+       Never applied to the shared .title / .dock-status-label classes,
+       which also carry unrelated sentence-length or CJK content. */
+    @font-face{
+      font-family: "Rajdhani";
+      src: url("assets/fonts/Rajdhani-Light.woff2") format("woff2");
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face{
+      font-family: "Rajdhani";
+      src: url("assets/fonts/Rajdhani-Medium.woff2") format("woff2");
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face{
+      font-family: "Rajdhani";
+      src: url("assets/fonts/Rajdhani-Bold.woff2") format("woff2");
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
 
     *{ box-sizing: border-box; }
     html,body{ min-height: 100%; }
@@ -852,6 +878,7 @@
       justify-items: center;
     }
     .brand-masthead-title{
+      font-family: "Rajdhani", "NotoSansTC", sans-serif;
       font-size: 40px;
       font-weight: 300;
       letter-spacing: .34em;
@@ -895,6 +922,7 @@
       min-width: max-content;
     }
     .scene-banner-title{
+      font-family: "Rajdhani", "NotoSansTC", sans-serif;
       font-size: 26px;
       font-weight: 800;
       letter-spacing: .16em;
@@ -1016,6 +1044,13 @@
       line-height: 1;
       letter-spacing: -.03em;
       font-weight: 900;
+    }
+    /* #orbitTitle repeats the "StarPath" wordmark (always Latin); the bare
+       .title class above is shared with unrelated sentence copy, so this
+       stays ID-scoped rather than widening the class rule. */
+    #orbitTitle{
+      font-family: "Rajdhani", "NotoSansTC", sans-serif;
+      letter-spacing: .01em;
     }
 
     .subtitle{
