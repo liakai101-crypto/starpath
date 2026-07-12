@@ -6859,6 +6859,70 @@
         0 0 28px color-mix(in srgb, var(--bridge-accent-strong) 38%, transparent),
         0 0 80px color-mix(in srgb, var(--bridge-accent-strong) 18%, transparent);
     }
+    /* Holographic relationship projection: the reactor displays the current
+       connection as a live orbital miniature (you at center, the selected
+       friend circling on a tilted track, signal traffic ring). Colors ride
+       the phase-tint vars; data-holo-tier picks the near or far track. */
+    .reactor-holo{
+      position: absolute;
+      inset: 8px;
+      width: calc(100% - 16px);
+      height: calc(100% - 16px);
+      pointer-events: none;
+      overflow: visible;
+    }
+    .holo-orbit{
+      fill: none;
+      stroke: color-mix(in srgb, var(--bridge-accent-strong) 45%, white);
+      stroke-width: 1.2;
+      stroke-dasharray: 3 6;
+      opacity: .62;
+    }
+    .holo-orbit-inner{
+      opacity: .42;
+    }
+    .holo-traffic{
+      fill: none;
+      stroke: color-mix(in srgb, var(--bridge-accent-strong) 60%, white);
+      stroke-width: 1.5;
+      stroke-dasharray: 2 14 16 10 4 22;
+      stroke-linecap: round;
+      opacity: .52;
+      animation: holoTraffic 7s linear infinite;
+    }
+    .holo-you{
+      fill: #fff;
+      stroke: color-mix(in srgb, var(--bridge-accent-strong) 60%, white);
+      stroke-width: 2.5;
+      stroke-opacity: .5;
+    }
+    .holo-friend{
+      fill: color-mix(in srgb, var(--bridge-accent-strong) 45%, white);
+      stroke: rgba(255,255,255,.85);
+      stroke-width: 1.2;
+      offset-path: path('M 172 104 A 72 26 0 1 1 28 104 A 72 26 0 1 1 172 104');
+      offset-rotate: 0deg;
+      animation: holoFriendOrbit 13s linear infinite, holoFriendDepth 13s linear infinite;
+    }
+    .bridge-reactor[data-holo-tier="local"] .holo-friend{
+      offset-path: path('M 146 104 A 46 17 0 1 1 54 104 A 46 17 0 1 1 146 104');
+      animation-duration: 8.5s, 8.5s;
+    }
+    @keyframes holoFriendOrbit{
+      from{ offset-distance: 0%; }
+      to{ offset-distance: 100%; }
+    }
+    /* Front half of the track reads near (bright, full size); the back half
+       passes behind the core (dim, smaller). */
+    @keyframes holoFriendDepth{
+      0%, 42%{ opacity: 1; r: 5px; }
+      50%, 88%{ opacity: .34; r: 3.6px; }
+      96%, 100%{ opacity: 1; r: 5px; }
+    }
+    @keyframes holoTraffic{
+      from{ stroke-dashoffset: 0; }
+      to{ stroke-dashoffset: -138; }
+    }
     .bridge-lower-band{
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -8870,7 +8934,7 @@
     .bridge-reactor-core{
       inset: 58px;
       background:
-        radial-gradient(circle, rgba(255,255,255,.98), color-mix(in srgb, var(--bridge-accent-strong) 76%, white) 28%, rgba(108,227,246,.26) 54%, rgba(108,227,246,0) 78%);
+        radial-gradient(circle, rgba(255,255,255,.72), color-mix(in srgb, var(--bridge-accent-strong) 60%, white) 14%, rgba(108,227,246,.14) 44%, rgba(108,227,246,0) 74%);
       box-shadow:
         0 0 28px color-mix(in srgb, var(--bridge-accent-strong) 42%, transparent),
         0 0 84px color-mix(in srgb, var(--bridge-accent-strong) 18%, transparent);
@@ -11232,8 +11296,15 @@
                               <div class="bridge-core-column right" aria-hidden="true"></div>
                               <div class="bridge-core-ring" aria-hidden="true"></div>
                               <div class="bridge-core-ring inner" aria-hidden="true"></div>
-                              <div class="bridge-reactor">
+                              <div class="bridge-reactor" data-holo-tier="local">
                                 <div class="bridge-reactor-core"></div>
+                                <svg class="reactor-holo" viewBox="0 0 200 200" aria-hidden="true">
+                                  <ellipse class="holo-orbit holo-orbit-outer" cx="100" cy="104" rx="72" ry="26"/>
+                                  <ellipse class="holo-orbit holo-orbit-inner" cx="100" cy="104" rx="46" ry="17"/>
+                                  <circle class="holo-traffic" cx="100" cy="104" r="58"/>
+                                  <circle class="holo-you" cx="100" cy="104" r="4.5"/>
+                                  <circle class="holo-friend" r="5"/>
+                                </svg>
                               </div>
                               <div class="bridge-core-dock">
                                 <div class="label" id="baseSignalLabel">Connection core</div>
@@ -15052,6 +15123,7 @@
       syncOrbitViewControls();
       focusFriend.textContent = localize(item.focus);
       baseFocusFriend.textContent = localize(item.focus);
+      document.querySelector('.bridge-reactor')?.setAttribute('data-holo-tier', getSelectedFriendDistanceTier(nextIndex));
       linkStatus.textContent = translateLink(item.link);
       baseLinkStatus.textContent = translateLink(item.link);
       if (telemetryWarmthValue) telemetryWarmthValue.textContent = item.telemetry.warmth;
