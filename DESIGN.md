@@ -134,7 +134,20 @@ Ambient/scenic animations are bespoke and slow on purpose — signature set:
 Rules: animate transform/opacity only (box-shadow pulses are banned —
 measured 43→113fps by removing one); large blurred layers get
 `will-change: transform`; **everything** obeys
-`prefers-reduced-motion: reduce` via the global collapse rule.
+`prefers-reduced-motion: reduce` via the global collapse rule, which zeroes
+`animation-delay`/`transition-delay` as well as duration — a delay-only
+reduction still gates content behind an invisible wait, which is exactly
+the failure mode the preference exists to prevent.
+
+**First-load staging (Orbit only).** A one-time choreographed entrance —
+rails slide in, the ship blooms, HUD/badges/ledger settle in sequence over
+~1.14s total — distinct from the `.fade-in` that plays on every routine
+scene switch. Gated by `.orbit-scene:not(.intro-done)`; JS adds
+`.intro-done` after the last staged element's `animationend`, so revisiting
+Orbit later in the session falls back to the light routine fade only (per
+the product register's rule against replaying page-load choreography on
+every navigation). Every element resolves via `both` fill mode even if the
+JS never runs, so nothing is gated behind a class that might not arrive.
 
 ## 5. Iconography
 

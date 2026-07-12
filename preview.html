@@ -9075,8 +9075,10 @@
       *::before,
       *::after{
         animation-duration: .01ms !important;
+        animation-delay: 0s !important;
         animation-iteration-count: 1 !important;
         transition-duration: .01ms !important;
+        transition-delay: 0s !important;
         scroll-behavior: auto !important;
       }
     }
@@ -9569,6 +9571,67 @@
     @keyframes fadeIn{
       from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* First-load staging: a one-time choreographed entrance for Orbit,
+       distinct from the routine .fade-in that replays on every scene
+       switch. Rails slide in first, the ship blooms into place, HUD and
+       ledger settle last. JS adds .intro-done to .orbit-scene once, after
+       which the :not() below stops matching for the rest of the session -
+       revisiting Orbit falls back to the light .fade-in only, per the
+       product motion rule against replaying page-load choreography on
+       routine navigation. Every element still resolves to its normal
+       resting state via `both` fill mode even if JS never runs. */
+    @keyframes introRise{
+      from{ opacity: 0; transform: translateY(16px); }
+      to{ opacity: 1; transform: translateY(0); }
+    }
+    @keyframes introRiseSide{
+      from{ opacity: 0; transform: translateX(var(--intro-x, -18px)); }
+      to{ opacity: 1; transform: translateX(0); }
+    }
+    @keyframes introBloom{
+      from{ opacity: 0; transform: scale(.92); }
+      to{ opacity: 1; transform: scale(1); }
+    }
+    .orbit-scene:not(.intro-done) .orbit-left{
+      --intro-x: -18px;
+      animation: introRiseSide var(--dur-slow) var(--ease) both;
+      animation-delay: .04s;
+    }
+    .orbit-scene:not(.intro-done) .orbit-system{
+      --intro-x: 18px;
+      animation: introRiseSide var(--dur-slow) var(--ease) both;
+      animation-delay: .04s;
+    }
+    /* Wide Space repositions/rescales the ship via its own transform+opacity
+       (translate/rotate/scale, opacity .9) - same override risk as
+       target-hud/contact-card above. */
+    .orbit-scene:not(.intro-done) .center-stage:not([data-view-mode="wide"]) .orbit-ship{
+      animation: introBloom .6s var(--ease) both;
+      animation-delay: .22s;
+    }
+    .orbit-scene:not(.intro-done) .stage-badges{
+      animation: introRise var(--dur-slow) var(--ease) both;
+      animation-delay: .34s;
+    }
+    /* target-hud and contact-card are also hidden by
+       .center-stage[data-view-mode="wide"] (opacity/transform), and a
+       running animation overrides cascaded static values for the
+       properties it animates. Guard with :not([data-view-mode="wide"]) so
+       switching to Wide Space during the ~1s intro window can't force
+       these back visible over the wide-mode hidden state. */
+    .orbit-scene:not(.intro-done) .center-stage:not([data-view-mode="wide"]) .target-hud{
+      animation: introRise var(--dur-slow) var(--ease) both;
+      animation-delay: .48s;
+    }
+    .orbit-scene:not(.intro-done) .center-stage:not([data-view-mode="wide"]) .contact-card{
+      animation: introRise var(--dur-slow) var(--ease) both;
+      animation-delay: .60s;
+    }
+    .orbit-scene:not(.intro-done) .route-ledger{
+      animation: introRise var(--dur-slow) var(--ease) both;
+      animation-delay: .72s;
     }
 
     @media (max-width: 1200px){
@@ -15849,6 +15912,17 @@
           playWormholeJump();
         }
       }, 420);
+    }
+
+    // One-time Orbit entrance choreography (see .orbit-scene:not(.intro-done)
+    // above): once the last staged element finishes, mark it done so
+    // revisiting Orbit later in the session only gets the routine fade-in.
+    const orbitSceneEl = document.querySelector('.orbit-scene');
+    const orbitLedgerEl = orbitSceneEl?.querySelector('.route-ledger');
+    if (orbitSceneEl && orbitLedgerEl) {
+      orbitLedgerEl.addEventListener('animationend', (event) => {
+        if (event.animationName === 'introRise') orbitSceneEl.classList.add('intro-done');
+      }, { once: true });
     }
   </script>
 </body>
