@@ -1199,6 +1199,47 @@
     .icon-orbit{ mask-image: radial-gradient(circle at 50% 50%, transparent 0 3px, #000 3px 100%); }
     .icon-base{ mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="M12 2 2 7l10 5 10-5-10-5Zm0 7L2 14l10 5 10-5-10-5Zm0 7L2 21l10 5 10-5-10-5Z"/></svg>'); }
     .icon-capsule{ mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="M4 5a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v14a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V5Zm3-1a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H7Zm1 3h8v2H8V7Zm0 4h8v2H8v-2Z"/></svg>'); }
+    .icon-star{ mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="M12 2c.6 4.8 3.2 7.4 8 8-4.8.6-7.4 3.2-8 8-.6-4.8-3.2-7.4-8-8 4.8-.6 7.4-3.2 8-8Z"/></svg>'); }
+    .icon-filter{ mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="M3 5h18l-7 8.2V19l-4 2v-7.8L3 5Z"/></svg>'); }
+    .icon-lock{ mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="M12 3a4 4 0 0 0-4 4v3H7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2h-1V7a4 4 0 0 0-4-4Zm-2 7V7a2 2 0 1 1 4 0v3h-4Z"/></svg>'); }
+    /* Brand marks scale with their container's type size. */
+    .brand-masthead-mark .icon,
+    .orbit-rail-brand .icon,
+    .dock-os-mark .icon{
+      width: 1em;
+      height: 1em;
+    }
+    /* Control buttons render their symbol as a masked pseudo-element; the
+       existing is-collapsed class machinery picks which one shows. ::after
+       on these buttons is reserved for the 44px hit area. */
+    .fold-toggle::before,
+    .pane-toggle::before,
+    .contact-cta::before{
+      content: "";
+      width: 13px;
+      height: 13px;
+      background: currentColor;
+      mask-size: contain;
+      mask-repeat: no-repeat;
+      mask-position: center;
+    }
+    .fold-toggle::before{
+      mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="M5 11h14v2H5v-2Z"/></svg>');
+    }
+    .fold-toggle.is-collapsed::before{
+      mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5Z"/></svg>');
+    }
+    .contact-cta::before{
+      mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="m6.4 5 5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6L6.4 19 5 17.6 10.6 12 5 6.4 6.4 5Z"/></svg>');
+    }
+    .pane-toggle-left::before,
+    .pane-toggle-right.is-collapsed::before{
+      mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="M14.6 4.6 16 6l-6 6 6 6-1.4 1.4L7.2 12l7.4-7.4Z"/></svg>');
+    }
+    .pane-toggle-right::before,
+    .pane-toggle-left.is-collapsed::before{
+      mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="M9.4 4.6 8 6l6 6-6 6 1.4 1.4 7.4-7.4L9.4 4.6Z"/></svg>');
+    }
 
     .top-badges{
       display: flex;
@@ -10615,7 +10656,7 @@
 
       <div class="viewport">
         <div class="brand-masthead">
-          <div class="brand-masthead-mark">✦</div>
+          <div class="brand-masthead-mark"><span class="icon icon-star" aria-hidden="true"></span></div>
           <div class="brand-masthead-copy">
             <div class="brand-masthead-title">StarPath</div>
             <div class="brand-masthead-subtitle">Relationship Navigation System</div>
@@ -10633,7 +10674,7 @@
                   <button class="top-tool compact-label active" id="orbitZoomIn" type="button" aria-pressed="true">Local Orbit</button>
                   <button class="top-tool compact-label" id="orbitZoomOut" type="button" aria-pressed="false">Wide Space</button>
                 </div>
-                <button class="top-tool" aria-label="filters">⌘</button>
+                <button class="top-tool" aria-label="filters"><span class="icon icon-filter" aria-hidden="true"></span></button>
                 <button class="top-tool compact-label" id="mobilePreviewToggle" type="button" aria-pressed="false">手機預覽</button>
               </div>
             </div>
@@ -10654,7 +10695,7 @@
             <div class="orbit-grid-main">
               <div class="glass-card m-card orbit-left" style="align-self:start;">
                 <div class="orbit-rail-nav" aria-hidden="true">
-                  <div class="orbit-rail-brand">✦</div>
+                  <div class="orbit-rail-brand"><span class="icon icon-star" aria-hidden="true"></span></div>
                   <div class="orbit-rail-links">
                     <div class="orbit-rail-link active"></div>
                     <div class="orbit-rail-link"></div>
@@ -10672,7 +10713,7 @@
                     <h1 class="title" id="orbitTitle">StarPath</h1>
                     <p class="subtitle" id="orbitSubtitle">Relationship navigation stack</p>
                   </div>
-                  <button class="pane-toggle" id="toggleLeftPane" type="button" aria-label="Collapse command deck" aria-expanded="true">‹</button>
+                  <button class="pane-toggle pane-toggle-left" id="toggleLeftPane" type="button" aria-label="Collapse command deck" aria-expanded="true"></button>
                 </div>
                 <div class="collapsed-badge">Deck</div>
                 <div class="rail-section collapsed" id="orbitFiltersSection">
@@ -10681,7 +10722,7 @@
                       <p class="rail-section-title" id="orbitFiltersTitle">Route filters</p>
                       <p class="rail-section-subtitle" id="orbitFiltersSubtitle">Narrow the deck before you touch the stage.</p>
                     </div>
-                    <button class="fold-toggle is-collapsed" id="toggleOrbitFilters" type="button" aria-label="Expand route filters" aria-expanded="false">+</button>
+                    <button class="fold-toggle is-collapsed" id="toggleOrbitFilters" type="button" aria-label="Expand route filters" aria-expanded="false"></button>
                   </div>
                   <div class="rail-section-summary" id="orbitFiltersSummary">All lanes visible. Search and filter stay available when expanded.</div>
                   <div class="rail-section-body">
@@ -10703,7 +10744,7 @@
                       <p class="rail-section-title" id="orbitTargetsTitle">Recent targets</p>
                       <p class="rail-section-subtitle" id="orbitTargetsSubtitle">Click a lane here or tap a ship on stage.</p>
                     </div>
-                    <button class="fold-toggle" id="toggleOrbitTargets" type="button" aria-label="Collapse recent targets" aria-expanded="true">−</button>
+                    <button class="fold-toggle" id="toggleOrbitTargets" type="button" aria-label="Collapse recent targets" aria-expanded="true"></button>
                   </div>
                   <div class="rail-section-summary" id="orbitTargetsSummary">Alex is currently selected. Tap again to reopen the full route list.</div>
                   <div class="rail-section-body">
@@ -10733,7 +10774,7 @@
                       <p class="rail-section-title" id="orbitArchiveTitle">Invisible routes</p>
                       <p class="rail-section-subtitle" id="orbitArchiveSubtitle">Keep sealed lanes nearby without flooding the main stage.</p>
                     </div>
-                    <button class="fold-toggle is-collapsed" id="toggleOrbitArchive" type="button" aria-label="Expand invisible routes" aria-expanded="false">+</button>
+                    <button class="fold-toggle is-collapsed" id="toggleOrbitArchive" type="button" aria-label="Expand invisible routes" aria-expanded="false"></button>
                   </div>
                   <div class="rail-section-summary" id="orbitArchiveSummary">No routes archived yet.</div>
                   <div class="rail-section-body">
@@ -10904,7 +10945,7 @@
                       <div class="target-hud-kicker" id="targetHudKicker">Target lock</div>
                       <div class="target-hud-tools">
                         <div class="target-hud-state" id="targetHudState">Route live</div>
-                        <button class="fold-toggle is-collapsed" id="toggleTargetHud" type="button" aria-label="Expand target panel" aria-expanded="false">+</button>
+                        <button class="fold-toggle is-collapsed" id="toggleTargetHud" type="button" aria-label="Expand target panel" aria-expanded="false"></button>
                       </div>
                     </div>
                     <div class="target-hud-focus">
@@ -10949,8 +10990,8 @@
                   <div class="contact-head">
                     <h2 class="contact-title" id="orbitActionLabel">Quick actions</h2>
                     <div class="contact-head-actions">
-                      <button class="fold-toggle is-collapsed" id="toggleContactCard" type="button" aria-label="Expand quick actions" aria-expanded="false">+</button>
-                      <button class="contact-cta" id="clearSelection" aria-label="Clear selection">×</button>
+                      <button class="fold-toggle is-collapsed" id="toggleContactCard" type="button" aria-label="Expand quick actions" aria-expanded="false"></button>
+                      <button class="contact-cta" id="clearSelection" aria-label="Clear selection"></button>
                     </div>
                   </div>
                   <div class="hidden" id="orbitSelection" data-auto="1">Tap a ship to open the relationship layer.</div>
@@ -10969,7 +11010,7 @@
                     </div>
                     <div class="route-ledger-tools">
                       <div class="route-ledger-time" id="routeLedgerTime">Live sync</div>
-                      <button class="fold-toggle is-collapsed" id="toggleRouteLedger" type="button" aria-label="Expand route ledger" aria-expanded="false">+</button>
+                      <button class="fold-toggle is-collapsed" id="toggleRouteLedger" type="button" aria-label="Expand route ledger" aria-expanded="false"></button>
                     </div>
                   </div>
                   <div class="route-ledger-grid">
@@ -11004,7 +11045,7 @@
                     <h2 class="section-title" style="margin:0;" id="orbitSystemTitle">Relationship telemetry</h2>
                     <p class="section-sub" id="orbitSystemSubtitle">Focused controls with softer materials and stronger hierarchy.</p>
                   </div>
-                  <button class="pane-toggle" id="toggleRightPane" type="button" aria-label="Collapse system panel" aria-expanded="true">›</button>
+                  <button class="pane-toggle pane-toggle-right" id="toggleRightPane" type="button" aria-label="Collapse system panel" aria-expanded="true"></button>
                 </div>
                 <div class="collapsed-badge">System</div>
                 <div class="rail-section collapsed" id="orbitTelemetrySection">
@@ -11013,7 +11054,7 @@
                       <p class="rail-section-title" id="orbitTelemetryTitle">Live telemetry</p>
                       <p class="rail-section-subtitle" id="orbitTelemetrySubtitle">Only keep the readings that help the next move.</p>
                     </div>
-                    <button class="fold-toggle is-collapsed" id="toggleOrbitTelemetry" type="button" aria-label="Expand live telemetry" aria-expanded="false">+</button>
+                    <button class="fold-toggle is-collapsed" id="toggleOrbitTelemetry" type="button" aria-label="Expand live telemetry" aria-expanded="false"></button>
                   </div>
                   <div class="rail-section-summary" id="orbitTelemetrySummary">Warmth 72%, cadence 2.4x, risk low.</div>
                   <div class="rail-section-body">
@@ -11049,7 +11090,7 @@
                       <p class="rail-section-title" id="orbitContextTitle">Route context</p>
                       <p class="rail-section-subtitle" id="orbitContextSubtitle">Keep one target, one status, and one recent event readable.</p>
                     </div>
-                    <button class="fold-toggle" id="toggleOrbitContext" type="button" aria-label="Collapse route context" aria-expanded="true">−</button>
+                    <button class="fold-toggle" id="toggleOrbitContext" type="button" aria-label="Collapse route context" aria-expanded="true"></button>
                   </div>
                   <div class="rail-section-summary" id="orbitContextSummary">Alex · unlocked · warm late-night replies.</div>
                   <div class="rail-section-body">
@@ -11438,14 +11479,14 @@
                       </div>
                     </button>
                     <button class="memory-card" data-memory="1" type="button">
-                      <div class="image">🔒</div>
+                      <div class="image"><span class="icon icon-lock" aria-hidden="true"></span></div>
                       <div>
                         <p class="name" id="capsuleMemoryName1">First Coordinate</p>
                         <p class="desc" id="capsuleMemoryDesc1">Locked until more gravity builds.</p>
                       </div>
                     </button>
                     <button class="memory-card locked" data-memory="2" type="button">
-                      <div class="image">🔒</div>
+                      <div class="image"><span class="icon icon-lock" aria-hidden="true"></span></div>
                       <div>
                         <p class="name" id="capsuleMemoryName2">Locked Archive</p>
                         <p class="desc" id="capsuleMemoryDesc2">Locked until more gravity builds.</p>
@@ -11636,7 +11677,7 @@
         <div class="footer-dock-inner">
           <div class="dock">
             <div class="dock-status-cluster dock-brand-cluster">
-              <div class="dock-os-mark">✦</div>
+              <div class="dock-os-mark"><span class="icon icon-star" aria-hidden="true"></span></div>
               <div class="dock-status-copy">
                 <div class="dock-status-label">StarPath OS</div>
                 <div class="dock-status-value">v1.0.0</div>
@@ -14860,19 +14901,16 @@
       routeLedger?.classList.toggle('collapsed', !!uiState.routeLedgerCollapsed);
       targetHud?.classList.toggle('collapsed', !!uiState.targetHudCollapsed);
       if (toggleContactCard){
-        toggleContactCard.textContent = uiState.contactCardCollapsed ? '+' : '−';
         toggleContactCard.classList.toggle('is-collapsed', !!uiState.contactCardCollapsed);
         toggleContactCard.setAttribute('aria-expanded', String(!uiState.contactCardCollapsed));
         toggleContactCard.setAttribute('aria-label', uiState.contactCardCollapsed ? 'Expand quick actions' : 'Collapse quick actions');
       }
       if (toggleRouteLedger){
-        toggleRouteLedger.textContent = uiState.routeLedgerCollapsed ? '+' : '−';
         toggleRouteLedger.classList.toggle('is-collapsed', !!uiState.routeLedgerCollapsed);
         toggleRouteLedger.setAttribute('aria-expanded', String(!uiState.routeLedgerCollapsed));
         toggleRouteLedger.setAttribute('aria-label', uiState.routeLedgerCollapsed ? 'Expand route ledger' : 'Collapse route ledger');
       }
       if (toggleTargetHud){
-        toggleTargetHud.textContent = uiState.targetHudCollapsed ? '+' : '−';
         toggleTargetHud.classList.toggle('is-collapsed', !!uiState.targetHudCollapsed);
         toggleTargetHud.setAttribute('aria-expanded', String(!uiState.targetHudCollapsed));
         toggleTargetHud.setAttribute('aria-label', uiState.targetHudCollapsed ? 'Expand target panel' : 'Collapse target panel');
@@ -14944,7 +14982,6 @@
       config.forEach(([section, toggle, collapsed, label]) => {
         section?.classList.toggle('collapsed', !!collapsed);
         if (toggle) {
-          toggle.textContent = collapsed ? '+' : '−';
           toggle.classList.toggle('is-collapsed', !!collapsed);
           toggle.setAttribute('aria-expanded', String(!collapsed));
           toggle.setAttribute('aria-label', `${collapsed ? 'Expand' : 'Collapse'} ${label}`);
@@ -14958,12 +14995,12 @@
       orbitGridMain?.classList.toggle('left-collapsed', !!leftCollapsed);
       orbitGridMain?.classList.toggle('right-collapsed', !!rightCollapsed);
       if (toggleLeftPane){
-        toggleLeftPane.textContent = leftCollapsed ? '›' : '‹';
+        toggleLeftPane.classList.toggle('is-collapsed', !!leftCollapsed);
         toggleLeftPane.setAttribute('aria-expanded', String(!leftCollapsed));
         toggleLeftPane.setAttribute('aria-label', leftCollapsed ? 'Expand command deck' : 'Collapse command deck');
       }
       if (toggleRightPane){
-        toggleRightPane.textContent = rightCollapsed ? '‹' : '›';
+        toggleRightPane.classList.toggle('is-collapsed', !!rightCollapsed);
         toggleRightPane.setAttribute('aria-expanded', String(!rightCollapsed));
         toggleRightPane.setAttribute('aria-label', rightCollapsed ? 'Expand system panel' : 'Collapse system panel');
       }

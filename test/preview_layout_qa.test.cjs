@@ -137,15 +137,41 @@ function isAllowed(kind, item) {
   });
 }
 
-async function run() {
-  const exe = BROWSER_CANDIDATES.find((p) => fs.existsSync(p));
-  if (!exe) {
+// A failed launch attempt can leave a detached promise that rejects later
+// with EBUSY while puppeteer deletes its temp profile; that cleanup noise
+// must not kill the run after we've already moved to the next browser.
+process.on('unhandledRejection', (err) => {
+  if (err && err.code === 'EBUSY' && String(err.path || '').includes('puppeteer_dev_')) {
+    console.error('layout-qa: ignored temp-profile cleanup EBUSY from a failed launch');
+    return;
+  }
+  throw err;
+});
+
+// A browser binary can exist yet fail to launch headless (e.g. a running
+// interactive Edge holding the profile). Try candidates until one launches.
+async function launchAnyBrowser() {
+  const existing = BROWSER_CANDIDATES.filter((p) => fs.existsSync(p));
+  if (!existing.length) {
     console.error('layout-qa: no Edge/Chrome found; set PUPPETEER_EXECUTABLE_PATH');
     process.exit(2);
   }
+  let lastErr;
+  for (const exe of existing) {
+    try {
+      return await puppeteer.launch({ executablePath: exe, headless: 'new' });
+    } catch (e) {
+      lastErr = e;
+      console.error(`layout-qa: launch failed for ${exe}, trying next candidate`);
+    }
+  }
+  throw lastErr;
+}
+
+async function run() {
   const server = await startServer();
   const port = server.address().port;
-  const browser = await puppeteer.launch({ executablePath: exe, headless: 'new' });
+  const browser = await launchAnyBrowser();
   const failures = [];
   let sweeps = 0;
 
