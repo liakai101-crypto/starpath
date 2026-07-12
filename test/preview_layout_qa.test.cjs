@@ -157,12 +157,16 @@ async function launchAnyBrowser() {
     process.exit(2);
   }
   let lastErr;
-  for (const exe of existing) {
+  for (let i = 0; i < existing.length; i++) {
     try {
-      return await puppeteer.launch({ executablePath: exe, headless: 'new' });
+      // Explicit userDataDir: puppeteer then never deletes a temp profile,
+      // which removes the EBUSY cleanup race a failed launch can leave
+      // behind on Windows.
+      const dir = path.join(require('os').tmpdir(), `starpath-layoutqa-${process.pid}-${i}`);
+      return await puppeteer.launch({ executablePath: existing[i], headless: 'new', userDataDir: dir });
     } catch (e) {
       lastErr = e;
-      console.error(`layout-qa: launch failed for ${exe}, trying next candidate`);
+      console.error(`layout-qa: launch failed for ${existing[i]}, trying next candidate`);
     }
   }
   throw lastErr;

@@ -35,6 +35,7 @@ Read these before making meaningful product changes:
 - [`docs/DECISIONS.md`](/C:/starpath/docs/DECISIONS.md)
 - [`docs/STATE.md`](/C:/starpath/docs/STATE.md)
 - [`GAME_SPEC.md`](/C:/starpath/GAME_SPEC.md)
+- [`DESIGN.md`](/C:/starpath/DESIGN.md) — the visual system as a portable spec (tokens, phase tints, motion, icons, portraits)
 
 Then read:
 

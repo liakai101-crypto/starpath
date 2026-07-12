@@ -31,7 +31,21 @@
       --radius-md: 18px;
       --radius-sm: 14px;
       --max: 1400px;
+      /* Warm accent (amber) — the counterweight to the cyan accent. */
+      --warm: #ffd89c;
+      --warm-strong: #ffcf9a;
+      /* Motion: one easing, three interaction durations. Ambient/scenic
+         animations keep bespoke long durations (see DESIGN.md). */
       --ease: cubic-bezier(.2,.8,.2,1);
+      --dur-fast: .2s;
+      --dur-base: .28s;
+      --dur-slow: .42s;
+      /* Z scale (semantic): stage art 0-2, floating cards 3, hud layer 4-6,
+         pinned hud 8, scene transitions 12, full-screen overlays 18+. */
+      --z-stage: 1;
+      --z-card: 3;
+      --z-hud: 8;
+      --z-overlay: 18;
       color-scheme: dark;
     }
 
@@ -152,7 +166,7 @@
     .shell.base-ingress-active .center-stage{
       filter: blur(1.8px) saturate(.84);
       transform: scale(1.018);
-      transition: transform .42s var(--ease), filter .42s var(--ease), opacity .42s var(--ease);
+      transition: transform var(--dur-slow) var(--ease), filter var(--dur-slow) var(--ease), opacity var(--dur-slow) var(--ease);
     }
     .shell.base-ingress-active .orbit-left,
     .shell.base-ingress-active .orbit-system,
@@ -189,7 +203,7 @@
     .shell.base-egress-active .base-stage{
       filter: blur(2px) saturate(.8);
       transform: scale(1.016);
-      transition: transform .42s var(--ease), filter .42s var(--ease), opacity .42s var(--ease);
+      transition: transform var(--dur-slow) var(--ease), filter var(--dur-slow) var(--ease), opacity var(--dur-slow) var(--ease);
     }
     .shell.base-egress-active .base-frame,
     .shell.base-egress-active .base-route,
@@ -201,7 +215,7 @@
     .shell.capsule-transition-active .base-stage{
       filter: blur(2.4px) saturate(.78);
       transform: scale(1.02);
-      transition: transform .42s var(--ease), filter .42s var(--ease), opacity .42s var(--ease);
+      transition: transform var(--dur-slow) var(--ease), filter var(--dur-slow) var(--ease), opacity var(--dur-slow) var(--ease);
     }
     .shell.capsule-transition-active .orbit-left,
     .shell.capsule-transition-active .orbit-system,
@@ -1132,7 +1146,7 @@
       padding: 8px 12px;
       font-size: 12px;
       font-weight: 700;
-      transition: transform .2s var(--ease), background .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
+      transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
     }
     .chip:hover{ transform: translateY(-1px); }
     .chip.active{
@@ -1176,7 +1190,7 @@
       font-weight: 800;
       letter-spacing: .01em;
       box-shadow: 0 16px 30px rgba(0,0,0,.26);
-      transition: transform .2s var(--ease), background .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+      transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
     }
     .tab:hover{ transform: translateY(-1px); }
     .tab.active{
@@ -1558,7 +1572,7 @@
       place-items: center;
       font-size: 18px;
       line-height: 1;
-      transition: transform .2s var(--ease), background .2s var(--ease), border-color .2s var(--ease);
+      transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
     }
     .pane-toggle:hover{
       transform: translateY(-1px);
@@ -1576,7 +1590,7 @@
       place-items: center;
       font-size: 18px;
       line-height: 1;
-      transition: transform .2s var(--ease), background .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
+      transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
       flex: 0 0 auto;
     }
     .fold-toggle:hover{
@@ -1893,7 +1907,7 @@
       border-radius: 16px;
       border: 1px solid rgba(255,255,255,.05);
       background: linear-gradient(90deg, rgba(255,255,255,.03), rgba(255,255,255,.00));
-      transition: transform .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease);
+      transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
       text-align: left;
       position: relative;
     }
@@ -2813,7 +2827,7 @@
       grid-template-columns: minmax(0, 1.14fr) minmax(220px, .82fr);
       gap: 12px;
       pointer-events: none;
-      transition: left .28s var(--ease), right .28s var(--ease), bottom .28s var(--ease), gap .28s var(--ease);
+      transition: left var(--dur-base) var(--ease), right var(--dur-base) var(--ease), bottom var(--dur-base) var(--ease), gap var(--dur-base) var(--ease);
     }
     .target-hud-card{
       min-width: 0;
@@ -2825,7 +2839,7 @@
       box-shadow: 0 18px 44px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.04);
       backdrop-filter: blur(16px);
       padding: 14px 16px;
-      transition: padding .28s var(--ease), background .28s var(--ease), transform .28s var(--ease), border-color .28s var(--ease);
+      transition: padding var(--dur-base) var(--ease), background var(--dur-base) var(--ease), transform var(--dur-base) var(--ease), border-color var(--dur-base) var(--ease);
     }
     .target-hud-main{
       display: grid;
@@ -2900,7 +2914,7 @@
       border-radius: inherit;
       background: linear-gradient(90deg, rgba(108,227,246,.72), rgba(255,213,136,.82));
       box-shadow: 0 0 18px rgba(108,227,246,.22);
-      transition: width .46s var(--ease), filter .28s var(--ease);
+      transition: width .46s var(--ease), filter var(--dur-base) var(--ease);
     }
     .target-hud-fill::after{
       content: "";
@@ -3961,7 +3975,7 @@
       position: absolute;
       pointer-events: none;
       opacity: 0;
-      transition: opacity .42s var(--ease), transform .7s var(--ease), filter .4s var(--ease);
+      transition: opacity var(--dur-slow) var(--ease), transform .7s var(--ease), filter .4s var(--ease);
     }
     .ship-wide-silhouette{
       inset: 28% 18% 32% 18%;
@@ -4307,7 +4321,7 @@
       letter-spacing: -.01em;
       z-index: 6;
       cursor: pointer;
-      transition: transform .2s var(--ease), opacity .2s var(--ease), filter .2s var(--ease), background .2s var(--ease), border-color .2s var(--ease);
+      transition: transform var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease), filter var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
       animation: orbitNodeIdle 8.4s ease-in-out infinite;
       opacity: .72;
     }
@@ -5315,7 +5329,7 @@
       box-shadow: 0 22px 44px rgba(0,0,0,.24);
       backdrop-filter: blur(22px);
       z-index: 3;
-      transition: width .28s var(--ease), padding .28s var(--ease), transform .28s var(--ease), right .28s var(--ease), left .28s var(--ease), bottom .28s var(--ease), background .28s var(--ease);
+      transition: width var(--dur-base) var(--ease), padding var(--dur-base) var(--ease), transform var(--dur-base) var(--ease), right var(--dur-base) var(--ease), left var(--dur-base) var(--ease), bottom var(--dur-base) var(--ease), background var(--dur-base) var(--ease);
     }
     @keyframes orbitNodeIdle{
       0%, 100%{ transform: translateY(-50%) translateZ(0); }
@@ -5445,7 +5459,7 @@
       line-height: 1.2;
       letter-spacing: -.01em;
       padding: 14px 10px;
-      transition: transform .2s var(--ease), background .2s var(--ease), border-color .2s var(--ease);
+      transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
     }
     .sys-btn:hover{ transform: translateY(-1px); }
     .sys-btn:disabled{
@@ -5537,7 +5551,7 @@
       gap: 12px;
       z-index: 5;
       pointer-events: none;
-      transition: width .28s var(--ease), padding .28s var(--ease), transform .28s var(--ease), background .28s var(--ease);
+      transition: width var(--dur-base) var(--ease), padding var(--dur-base) var(--ease), transform var(--dur-base) var(--ease), background var(--dur-base) var(--ease);
     }
     .contact-card > *{
       pointer-events: auto;
@@ -5661,7 +5675,7 @@
       font-size: 16px;
       letter-spacing: -.01em;
       text-transform: none;
-      transition: transform .2s var(--ease), background .2s var(--ease), border-color .2s var(--ease);
+      transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
       display: grid;
       align-content: center;
       justify-items: center;
@@ -5810,7 +5824,7 @@
       font-weight: 800;
       position: relative;
       overflow: hidden;
-      transition: background .2s var(--ease), color .2s var(--ease), transform .2s var(--ease), box-shadow .2s var(--ease);
+      transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
       padding: 0 10px;
     }
     .dock-item::after{
@@ -6174,7 +6188,7 @@
       gap: 10px;
       z-index: 3;
       align-items: stretch;
-      transition: grid-template-columns .28s var(--ease);
+      transition: grid-template-columns var(--dur-base) var(--ease);
     }
     .base-workbench.summary-collapsed{
       --base-summary-col: 64px;
@@ -7006,7 +7020,7 @@
       font-size: 14px;
       font-weight: 800;
       letter-spacing: .02em;
-      transition: transform .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease);
+      transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
     }
     .bridge-action-btn:hover{
       transform: translateY(-1px);
@@ -7206,7 +7220,7 @@
       font-weight: 800;
       letter-spacing: .04em;
       text-transform: uppercase;
-      transition: transform .2s var(--ease), background .2s var(--ease), border-color .2s var(--ease);
+      transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
     }
     .composer-preset.active{
       border-color: rgba(108,227,246,.22);
@@ -7272,7 +7286,7 @@
       font-size: 13px;
       font-weight: 800;
       letter-spacing: .02em;
-      transition: transform .2s var(--ease), background .2s var(--ease), border-color .2s var(--ease);
+      transition: transform var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
     }
     .composer-action:hover{
       transform: translateY(-1px);
@@ -7421,7 +7435,7 @@
       align-content: start;
       background: linear-gradient(180deg, rgba(8,13,22,.82), rgba(8,13,22,.48));
       backdrop-filter: blur(14px);
-      transition: padding .28s var(--ease), background .28s var(--ease), transform .28s var(--ease);
+      transition: padding var(--dur-base) var(--ease), background var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
     }
     .route-summary .base-support-card.compact{
       border-radius: 20px;
@@ -7660,7 +7674,7 @@
       right: 386px;
     }
     .stage-badges .pill{
-      transition: border-color .28s var(--ease), background .28s var(--ease), color .28s var(--ease), box-shadow .28s var(--ease), transform .28s var(--ease);
+      transition: border-color var(--dur-base) var(--ease), background var(--dur-base) var(--ease), color var(--dur-base) var(--ease), box-shadow var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
     }
     .stage-badges .pill[data-nav-tone="cruise"]{
       border-color: rgba(255,255,255,.08);
@@ -7715,7 +7729,7 @@
       gap: 10px;
       align-content: start;
       min-height: 100%;
-      transition: padding .28s var(--ease), background .28s var(--ease), transform .28s var(--ease);
+      transition: padding var(--dur-base) var(--ease), background var(--dur-base) var(--ease), transform var(--dur-base) var(--ease);
     }
     .detail-head{
       display: grid;
@@ -8045,7 +8059,7 @@
       position: relative;
       text-align: left;
       cursor: pointer;
-      transition: transform .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease), box-shadow .2s var(--ease);
+      transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
     }
     .memory-card:hover{
       transform: translateY(-2px);
@@ -9496,7 +9510,7 @@
       font-weight: 900;
       letter-spacing: .12em;
       text-transform: uppercase;
-      transition: transform .2s var(--ease), border-color .2s var(--ease), background .2s var(--ease);
+      transition: transform var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
     }
     .signal-page-back:hover{
       transform: translateY(-1px);
@@ -9514,7 +9528,7 @@
     }
 
     .scene.fade-in{
-      animation: fadeIn .28s var(--ease) both;
+      animation: fadeIn var(--dur-base) var(--ease) both;
     }
     @keyframes fadeIn{
       from { opacity: 0; transform: translateY(6px); }
