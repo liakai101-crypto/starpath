@@ -181,6 +181,20 @@ pane-toggle (34/42px round, masked icon, 44px hit area) · signal card
 `:focus-visible` 2px ring `rgba(122,238,255,.85)` offset 2; containers with
 suppressed inner outlines use `:focus-within` instead.
 
+**Empty state (Orbit, zero friends).** `.orbit-scene.is-empty` — dev preview
+via the "空狀態預覽" toggle in the top toolbar or `?empty=1`. Hides every
+friend-specific overlay (target HUD, quick actions, route ledger, signal
+list, orbit markers, Hubble caption, wide-space markers, the top status
+pills) and shows `.orbit-empty-panel` in the route ledger's position: icon
++ kicker + headline + one sentence + a real CTA (`data-jump="base"`, the
+same mechanism the "Return to Orbit" button uses) that runs the actual
+Command Core ingress transition. The lone ship stays on stage — Orbit's
+sparse-cinematic register already reads as "quiet," so zero friends is the
+far end of the same spectrum, not a broken/different state. Known gap: the
+global footer dock's "Current Target" still shows the last-selected friend,
+since the toggle is intentionally scoped to the Orbit page rather than a
+full app-wide zero-data simulation.
+
 ## 8. Flutter port notes
 
 - Tokens → `ThemeExtension`s: one for primitives, one for the phase-tint

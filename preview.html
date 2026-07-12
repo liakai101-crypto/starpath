@@ -9634,6 +9634,103 @@
       animation-delay: .72s;
     }
 
+    /* Zero-friends empty state (dev preview via the "空狀態預覽" toggle or
+       ?empty=1). Real empty state, not a placeholder: it teaches what to do
+       next rather than reporting "nothing here". Friend-specific overlays
+       hide; the lone ship + starfield stay, which already reads as the
+       right "quiet, not broken" default per Orbit's sparse-cinematic
+       register - zero friends is just the far end of that same spectrum. */
+    .orbit-scene.is-empty .contact-card,
+    .orbit-scene.is-empty .target-hud,
+    .orbit-scene.is-empty .route-ledger,
+    .orbit-scene.is-empty #signalList,
+    .orbit-scene.is-empty .orbit-object,
+    .orbit-scene.is-empty .caption-card,
+    .orbit-scene.is-empty .wide-space-markers,
+    .orbit-scene.is-empty .stage-badges{
+      display: none;
+    }
+    .signal-empty-note{
+      display: none;
+    }
+    .orbit-scene.is-empty .signal-empty-note{
+      display: grid;
+      gap: 4px;
+      padding: 16px 4px;
+      text-align: center;
+    }
+    .signal-empty-title{
+      margin: 0;
+      font-size: 13px;
+      font-weight: 800;
+      color: rgba(225,232,238,.82);
+    }
+    .signal-empty-copy{
+      margin: 0;
+      font-size: 11px;
+      line-height: 1.42;
+      color: rgba(184,194,208,.68);
+    }
+    .orbit-empty-panel{
+      display: none;
+    }
+    .orbit-scene.is-empty .orbit-empty-panel{
+      position: absolute;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      width: min(460px, calc(100% - 116px));
+      display: grid;
+      justify-items: center;
+      gap: 8px;
+      padding: 28px 26px 24px;
+      border-radius: 28px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,.08);
+      background: linear-gradient(135deg, rgba(10,16,24,.82), rgba(18,27,40,.64));
+      box-shadow: 0 22px 44px rgba(0,0,0,.24);
+      backdrop-filter: blur(22px);
+      z-index: 3;
+    }
+    .orbit-empty-icon{
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle, rgba(108,227,246,.16), rgba(108,227,246,0) 72%);
+      color: var(--accent);
+      margin-bottom: 2px;
+    }
+    .orbit-empty-icon .icon{
+      width: 20px;
+      height: 20px;
+    }
+    .orbit-empty-kicker{
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(108,227,246,.82);
+    }
+    .orbit-empty-title{
+      margin: 0;
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -.01em;
+      color: #f5fbff;
+    }
+    .orbit-empty-copy{
+      margin: 0;
+      max-width: 34ch;
+      font-size: 13px;
+      line-height: 1.52;
+      color: rgba(210,219,228,.78);
+    }
+    .orbit-empty-panel .bridge-action-btn{
+      margin-top: 6px;
+    }
+
     @media (max-width: 1200px){
       body{ overflow: auto; }
       .app{ height: auto; min-height: 100%; overflow: auto; }
@@ -10885,6 +10982,7 @@
                 </div>
                 <button class="top-tool" aria-label="filters"><span class="icon icon-filter" aria-hidden="true"></span></button>
                 <button class="top-tool compact-label" id="mobilePreviewToggle" type="button" aria-pressed="false">手機預覽</button>
+                <button class="top-tool compact-label" id="emptyStateToggle" type="button" aria-pressed="false" title="Dev preview: zero-friends empty state">空狀態預覽</button>
               </div>
             </div>
             <div class="scene-banner orbit-banner">
@@ -10974,6 +11072,10 @@
                         <div class="signal-title">Ethan</div>
                         <div class="signal-sub">新連結，探索中</div>
                       </button>
+                    </div>
+                    <div class="signal-empty-note">
+                      <p class="signal-empty-title" id="signalEmptyTitle">No routes yet</p>
+                      <p class="signal-empty-copy" id="signalEmptyCopy">Once you add a friend, their route appears here.</p>
                     </div>
                   </div>
                 </div>
@@ -11239,6 +11341,13 @@
                       <div class="route-ledger-meta" id="routeLedgerShareMeta">No profile artifact is staged in Command Core yet.</div>
                     </div>
                   </div>
+                </div>
+                <div class="orbit-empty-panel">
+                  <div class="orbit-empty-icon"><span class="icon icon-star" aria-hidden="true"></span></div>
+                  <div class="orbit-empty-kicker" id="orbitEmptyKicker">No connections yet</div>
+                  <h3 class="orbit-empty-title" id="orbitEmptyTitle">This field is quiet, for now</h3>
+                  <p class="orbit-empty-copy" id="orbitEmptyCopy">Every friend becomes a ship. Build your first signal in Command Core to bring a route online.</p>
+                  <button class="bridge-action-btn primary" data-jump="base" id="orbitEmptyCta">Open Command Core</button>
                 </div>
               </div>
 
@@ -11986,6 +12095,8 @@
     const langToggle = document.getElementById('langToggle');
     const topTool = document.querySelector('.top-tool');
     const mobilePreviewToggle = document.getElementById('mobilePreviewToggle');
+    const emptyStateToggle = document.getElementById('emptyStateToggle');
+    const orbitSceneInner = document.querySelector('.orbit-scene');
     const baseIngressKicker = document.getElementById('baseIngressKicker');
     const baseIngressTarget = document.getElementById('baseIngressTarget');
     const baseIngressMode = document.getElementById('baseIngressMode');
@@ -12193,6 +12304,7 @@
       : 'orbit';
     const requestedMobilePreview = ['1', 'true', 'yes'].includes((previewParams.get('mobile') || '').toLowerCase());
     const requestedWormholeDemo = ['1', 'true', 'yes', 'demo'].includes((previewParams.get('wormhole') || '').toLowerCase());
+    const requestedEmptyState = ['1', 'true', 'yes'].includes((previewParams.get('empty') || '').toLowerCase());
     uiState.mobilePreview = requestedMobilePreview;
     const selectedMemoryBySignal = [0, 0, 0, 0];
     const stagedMemoryIndexBySignal = [-1, -1, -1, -1];
@@ -13005,6 +13117,12 @@
         signalDeckTitle: 'Live thread and outgoing signal',
         signalDeckCopy: 'This is the only chat surface in the product. Read the lane, draft one message, then transmit without turning the whole app into a dashboard.',
         signalDeckBackBtn: 'Back to Command Core',
+        orbitEmptyKicker: 'No connections yet',
+        orbitEmptyTitle: 'This field is quiet, for now',
+        orbitEmptyCopy: 'Every friend becomes a ship. Build your first signal in Command Core to bring a route online.',
+        orbitEmptyCta: 'Open Command Core',
+        signalEmptyTitle: 'No routes yet',
+        signalEmptyCopy: 'Once you add a friend, their route appears here.',
         langToggle: '繁中',
       },
       zh: {
@@ -13165,6 +13283,12 @@
         signalDeckTitle: '即時對話與對外訊號',
         signalDeckCopy: '這是產品中唯一的聊天頁。先讀通道、寫一則訊息，再送出，不要讓整個產品退化成儀表板。',
         signalDeckBackBtn: '返回指揮核心',
+        orbitEmptyKicker: '尚未建立連結',
+        orbitEmptyTitle: '這片星域還很安靜',
+        orbitEmptyCopy: '每個朋友都會成為一艘船。先在指揮核心組建第一道訊號，讓航道開始運作。',
+        orbitEmptyCta: '前往指揮核心',
+        signalEmptyTitle: '還沒有任何航道',
+        signalEmptyCopy: '新增朋友後，航道會顯示在這裡。',
         langToggle: 'EN',
       },
     };
@@ -13180,7 +13304,8 @@
       'capsuleMemoryTitle','capsuleMemorySub','capsuleMemoryCount','profileMemoryRibbonLabel','profileMemoryRibbonCopy','capsuleBadgeTitle','capsuleBadgeSub','capsuleIdentityKicker','capsuleIdentityScoreLabel','capsuleIdentityNote','capsuleOutputLabel0','capsuleOutputLabel1','capsuleOutputLabel2',
       'capsuleTimelineTitle','capsuleTimelineSub','profileReturnCopy','dockOrbit','dockBase','dockCapsule','signalDeckKicker','signalDeckTitle','signalDeckCopy','signalDeckBackBtn',
       'orbitChipAll','orbitChipResearch','orbitChipSport','orbitChipDesign',
-      'baseChipAll','baseChipResearch','baseChipSport','baseChipAdd'
+      'baseChipAll','baseChipResearch','baseChipSport','baseChipAdd',
+      'orbitEmptyKicker','orbitEmptyTitle','orbitEmptyCopy','orbitEmptyCta','signalEmptyTitle','signalEmptyCopy'
     ];
     let selectedSignal = 0;
     let pulsing = false;
@@ -15782,6 +15907,21 @@
       showToast(message.title, message.copy);
     });
 
+    emptyStateToggle?.addEventListener('click', () => {
+      playUiSound('pane');
+      const isEmpty = orbitSceneInner?.classList.toggle('is-empty');
+      emptyStateToggle.classList.toggle('is-active', !!isEmpty);
+      emptyStateToggle.setAttribute('aria-pressed', String(!!isEmpty));
+      const message = isEmpty
+        ? (currentLang === 'zh'
+          ? { title: '空狀態預覽已開啟', copy: '這是尚未新增任何朋友時的 Orbit 畫面，僅供設計檢視。' }
+          : { title: 'Empty state preview on', copy: 'This is how Orbit looks before any friend is added. Dev preview only.' })
+        : (currentLang === 'zh'
+          ? { title: '已回到一般預覽', copy: '畫面已還原成有航道資料的一般狀態。' }
+          : { title: 'Empty state preview off', copy: 'The screen is back to its normal, populated state.' });
+      showToast(message.title, message.copy);
+    });
+
     baseNewBtn?.addEventListener('click', () => {
       (async () => {
         playUiSound('soft');
@@ -15906,6 +16046,11 @@
     syncRouteLedger();
     closeSignalDeck();
     setTab(requestedScene);
+    if (requestedEmptyState) {
+      orbitSceneInner?.classList.add('is-empty');
+      emptyStateToggle?.classList.add('is-active');
+      emptyStateToggle?.setAttribute('aria-pressed', 'true');
+    }
     if (requestedScene === 'orbit' && requestedWormholeDemo) {
       window.setTimeout(() => {
         if (!wormholeLock && getActiveScene() === 'orbit') {
