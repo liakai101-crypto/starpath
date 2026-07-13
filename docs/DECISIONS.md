@@ -168,3 +168,23 @@ This file exists to stop future agents from treating deliberate decisions as arb
 - Why:
   - The current bottleneck is product clarity and scene execution
   - Dependency growth would increase migration cost before the design is stable
+
+## 16. WebGL for the stage is scoped, not started
+
+- Selected:
+  - Write down a considered plan ([`docs/WEBGL_STAGE.md`](/C:/starpath/docs/WEBGL_STAGE.md))
+    for replacing only the spatial "stage" content (ship, starfield,
+    wormhole, reactor holo) with WebGL/Three.js, keeping every UI surface
+    HTML/CSS — but do not begin implementing it
+- Rejected alternatives:
+  - Start building it now because the plan exists
+  - Reject the idea outright and not document it
+- Why:
+  - No current product requirement needs true perspective/camera
+    mechanics; Local Orbit and Wide Space are two fixed view layers
+    (DECISIONS #5), not a continuous camera, and CSS already meets that
+  - Consistent with #15: a rendering-stack addition needs a clear
+    product-level need, which does not exist yet
+  - Writing the plan down now (while the scene model is fresh) is cheaper
+    than re-deriving it later if the need does appear
+  - Starting Phase 0 of that plan is a decision only Kai makes

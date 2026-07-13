@@ -62,6 +62,11 @@ The Flutter app in `lib/` remains important, but it is not the current UI mainli
   [`docs/INTEGRATION.md`](/C:/starpath/docs/INTEGRATION.md). All three are
   gated on product decisions (key/hosting, local-first vs cloud, visual-spec
   sign-off), not on prototype work.
+- A possible WebGL stage split (ship/starfield/wormhole/reactor move to
+  Three.js, all UI stays HTML) is scoped, phased, and explicitly **not
+  started**, in [`docs/WEBGL_STAGE.md`](/C:/starpath/docs/WEBGL_STAGE.md);
+  see also [DECISIONS #16](/C:/starpath/docs/DECISIONS.md). Starting it is
+  gated on a product decision, not on prototype readiness.
 
 ## Build And Run
 

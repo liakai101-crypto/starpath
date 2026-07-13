@@ -208,3 +208,9 @@ full app-wide zero-data simulation.
 - The blur-heavy glass language is expensive on Skia too: budget
   `BackdropFilter`s per screen (the HTML runs ~30; aim lower) and reuse the
   measured lesson — never animate shadows, only transform/opacity.
+- A possible WebGL stage split (ship/starfield/wormhole/reactor move to
+  Three.js; every panel above stays HTML/CSS) is scoped in
+  [`docs/WEBGL_STAGE.md`](/C:/starpath/docs/WEBGL_STAGE.md) — not started.
+  If it happens, note it does not simplify this Flutter port: none of the
+  Three.js code transfers, only the underlying data contracts (distance
+  tier → orbit radius, phase-tint → color) do.
